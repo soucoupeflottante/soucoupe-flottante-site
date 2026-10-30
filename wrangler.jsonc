@@ -1,0 +1,17 @@
+{
+  "name": "soucoupe-flottante-site",
+  "main": "worker.js",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./",
+    "binding": "ASSETS",
+    "run_worker_first": ["/tally/*"]
+  },
+  "routes": [
+    { "pattern": "soucoupeflottante.com", "custom_domain": true },
+    { "pattern": "www.soucoupeflottante.com", "custom_domain": true }
+  ],
+  "d1_databases": [
+    { "binding": "DB", "database_name": "soucoupe-tally", "database_id": "ed0377fa-3de0-4e83-9291-4e79bc6db091" }
+  ]
+}

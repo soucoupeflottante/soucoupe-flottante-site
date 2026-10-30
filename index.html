@@ -37,9 +37,9 @@ a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
 <img src="logo.svg" alt="Soucoupe Flottante" style="display: block; width: 168px; height: auto">
 </a>
 <nav class="nav" style="display: flex; flex-wrap: wrap; gap: 4px 28px; font-size: 17px; font-weight: 500">
-<a href="#carte" style="display: inline-flex; align-items: center; min-height: 48px">La carte</a>
-<a href="#lieu" style="display: inline-flex; align-items: center; min-height: 48px">Le lieu</a>
-<a href="#venir" style="display: inline-flex; align-items: center; min-height: 48px">Venir</a>
+<a href="#carte" data-ev="nav-carte" style="display: inline-flex; align-items: center; min-height: 48px">La carte</a>
+<a href="#lieu" data-ev="nav-lieu" style="display: inline-flex; align-items: center; min-height: 48px">Le lieu</a>
+<a href="#venir" data-ev="nav-venir" style="display: inline-flex; align-items: center; min-height: 48px">Venir</a>
 </nav>
 </div>
 
@@ -50,8 +50,8 @@ a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
 <p style="margin: 28px 0 0; font-size: 26px; line-height: 1.35; font-weight: 500">Café le jour, bar le soir, canapés tout le temps.</p>
 <p style="margin: 14px 0 0; font-size: 18px; line-height: 1.5; color: #E7DDF0">42 rue Marx Dormoy, Paris 18e</p>
 <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px">
-<a class="btn" href="#carte" style="display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 28px; border-radius: 999px; background: #FF5E50; color: #1C2250; font-size: 17px; font-weight: 700; text-decoration: none">Voir la carte</a>
-<a class="btn" href="#venir" style="display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 28px; border-radius: 999px; border: 2px solid #FBF3E4; color: #FBF3E4; font-size: 17px; font-weight: 700; text-decoration: none; box-sizing: border-box">Nous trouver</a>
+<a class="btn" data-ev="btn-carte" href="#carte" style="display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 28px; border-radius: 999px; background: #FF5E50; color: #1C2250; font-size: 17px; font-weight: 700; text-decoration: none">Voir la carte</a>
+<a class="btn" data-ev="btn-trouver" href="#venir" style="display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 28px; border-radius: 999px; border: 2px solid #FBF3E4; color: #FBF3E4; font-size: 17px; font-weight: 700; text-decoration: none; box-sizing: border-box">Nous trouver</a>
 </div>
 </div>
 
@@ -226,7 +226,7 @@ a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
 <p style="margin: 28px 0 0; font-size: 26px; line-height: 1.4; font-weight: 500">42 rue Marx Dormoy<br>75018 Paris</p>
 <p style="margin: 14px 0 0; font-size: 18px; line-height: 1.55; color: #E7DDF0">Métro Marx Dormoy, ligne 12</p>
 <p style="margin: 28px 0 0; font-size: 18px; line-height: 1.7">Horaires : [à compléter]<br>Téléphone : [à compléter]<br>Instagram : [à compléter]</p>
-<a class="btn" href="https://maps.app.goo.gl/czW32poKdbgRFdst9" style="display: inline-flex; align-items: center; justify-content: center; min-height: 52px; margin-top: 32px; padding: 0 28px; border-radius: 999px; background: #FF5E50; color: #1C2250; font-size: 17px; font-weight: 700; text-decoration: none">Ouvrir dans Google Maps</a>
+<a class="btn" data-ev="maps" href="https://maps.app.goo.gl/czW32poKdbgRFdst9" style="display: inline-flex; align-items: center; justify-content: center; min-height: 52px; margin-top: 32px; padding: 0 28px; border-radius: 999px; background: #FF5E50; color: #1C2250; font-size: 17px; font-weight: 700; text-decoration: none">Ouvrir dans Google Maps</a>
 </div>
 
 <div style="flex: 1 1 420px; min-width: 0; box-sizing: border-box; background: #FBF3E4; border-radius: 28px; padding: 48px 40px">
@@ -248,5 +248,6 @@ a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
 
 </div>
 
+<script defer src="/tally.js" data-app="soucoupe"></script>
 </body>
 </html>
