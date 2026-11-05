@@ -38,6 +38,16 @@ a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
 @keyframes drift{0%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-14px) rotate(3deg)}100%{transform:translateY(0) rotate(-5deg)}}
 .float{animation:drift 6s ease-in-out infinite}
 @media (prefers-reduced-motion: reduce){.bob{animation:none}.float{animation:none}.btn{transition:none}}
+.sub{display:flex;flex-wrap:wrap;gap:12px;align-items:center;position:relative}
+.sub input[type=email]{flex:1 1 240px;min-width:0;min-height:52px;padding:0 20px;border-radius:999px;border:2px solid currentColor;background:transparent;color:inherit;font:inherit;font-size:17px;box-sizing:border-box}
+.sub input::placeholder{color:inherit;opacity:.65}
+.sub button{min-height:52px;padding:0 28px;border-radius:999px;border:0;background:#FF5E50;color:#1C2250;font:inherit;font-size:17px;font-weight:700;cursor:pointer;transition:transform .15s ease}
+.sub button:hover{transform:translateY(-2px)}
+.sub .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.subnote{margin:12px 0 0;font-size:15px;line-height:1.5;max-width:560px}
+.submsg{margin:10px 0 0;font-size:17px;font-weight:500;min-height:1.5em}
+input:focus-visible,button:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
+@media (prefers-reduced-motion: reduce){.sub button{transition:none}}
 </style>
 
 </head>
@@ -46,6 +56,8 @@ a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
 <button class="x" id="menux" aria-label="Fermer">&times;</button>
 <a href="#carte" data-ev="menu-carte">La carte</a>
 <a href="#lieu" data-ev="menu-lieu">Le lieu</a>
+<a href="#programme" data-ev="menu-programme">Programme</a>
+<a href="/apropos" data-ev="menu-apropos">À propos</a>
 <a href="#venir" data-ev="menu-venir">Venir</a>
 <a href="/en" hreflang="en" lang="en" data-ev="menu-lang">English</a>
 <a href="https://www.instagram.com/soucoupe.flottante/" data-ev="menu-instagram" target="_blank" rel="noopener">Instagram</a>
@@ -63,6 +75,8 @@ a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
 <nav class="nav" style="display: flex; flex-wrap: wrap; gap: 4px 28px; font-size: 17px; font-weight: 500">
 <a href="#carte" data-ev="nav-carte" style="display: inline-flex; align-items: center; min-height: 48px">La carte</a>
 <a href="#lieu" data-ev="nav-lieu" style="display: inline-flex; align-items: center; min-height: 48px">Le lieu</a>
+<a href="#programme" data-ev="nav-programme" style="display: inline-flex; align-items: center; min-height: 48px">Programme</a>
+<a href="/apropos" data-ev="nav-apropos" style="display: inline-flex; align-items: center; min-height: 48px">À propos</a>
 <a href="#venir" data-ev="nav-venir" style="display: inline-flex; align-items: center; min-height: 48px">Venir</a>
 </nav>
 <a class="lang" href="/en" hreflang="en" lang="en" data-ev="lang-en" aria-label="English">EN</a>
@@ -94,17 +108,6 @@ a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
 </header>
 
 <main>
-
-<!-- INTRO -->
-<section style="background: #FBF3E4">
-<div style="max-width: 800px; margin: 0 auto; padding: 56px 24px; box-sizing: border-box; text-align: center">
-<div style="display: flex; justify-content: center; gap: 14px" aria-hidden="true">
-<div style="width: 14px; height: 14px; border-radius: 50%; background: #E0AD2B"></div>
-<div style="width: 14px; height: 14px; border-radius: 50%; background: #FF5E50"></div>
-<div style="width: 14px; height: 14px; border-radius: 50%; background: #2E8F8A"></div>
-</div>
-</div>
-</section>
 
 <!-- CARTE -->
 <section id="carte" style="background: #E0AD2B">
@@ -219,6 +222,66 @@ a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
 </div>
 </section>
 
+<!-- INTRO -->
+<section style="background: #FBF3E4">
+<div style="max-width: 1120px; margin: 0 auto; padding: 72px 24px 80px; box-sizing: border-box">
+<h2 style="margin: 0; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: clamp(40px, 8vw, 64px); line-height: 1.05; letter-spacing: -0.01em">Matin, midi, soir.</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 40px 48px; margin-top: 48px">
+<div style="flex: 1 1 260px; min-width: 0">
+<div style="width: 14px; height: 14px; border-radius: 50%; background: #E0AD2B" aria-hidden="true"></div>
+<h3 style="margin: 18px 0 0; font-weight: 700; font-size: 28px; line-height: 1.15">Le matin</h3>
+<p style="margin: 12px 0 0; font-size: 19px; line-height: 1.55">Un café à l'italienne, préparé à la machine à levier. Des pâtisseries fraîches chaque matin.</p>
+</div>
+<div style="flex: 1 1 260px; min-width: 0">
+<div style="width: 14px; height: 14px; border-radius: 50%; background: #FF5E50" aria-hidden="true"></div>
+<h3 style="margin: 18px 0 0; font-weight: 700; font-size: 28px; line-height: 1.15">Le midi</h3>
+<p style="margin: 12px 0 0; font-size: 19px; line-height: 1.55">Un menu unique et simple. Entrée et dessert à 5 euros, plat entre 8 et 9 euros.</p>
+</div>
+<div style="flex: 1 1 260px; min-width: 0">
+<div style="width: 14px; height: 14px; border-radius: 50%; background: #2E8F8A" aria-hidden="true"></div>
+<h3 style="margin: 18px 0 0; font-weight: 700; font-size: 28px; line-height: 1.15">Le soir</h3>
+<p style="margin: 12px 0 0; font-size: 19px; line-height: 1.55">De la bière artisanale et du vin de petits domaines. Un verre de rouge ou de blanc à 4 euros.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PROGRAMME -->
+<section id="programme" style="background: #F2E6CF; color: #1C2250">
+<div style="max-width: 1120px; margin: 0 auto; padding: 88px 24px 96px; box-sizing: border-box">
+<h2 style="margin: 0; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: clamp(40px, 8vw, 64px); line-height: 1.05; letter-spacing: -0.01em">Programme</h2>
+<p style="margin: 28px 0 0; max-width: 680px; font-size: 22px; line-height: 1.5">Une scène ouverte, de la musique en direct, des ateliers, et des expositions qui changent tous les deux ou trois mois.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 24px; margin-top: 44px">
+<div style="flex: 1 1 280px; min-width: 0; background: #FFFFFF; border-radius: 24px; padding: 32px 28px; box-sizing: border-box">
+<div style="width: 14px; height: 14px; border-radius: 50%; background: #E0AD2B" aria-hidden="true"></div>
+<h3 style="margin: 16px 0 0; font-weight: 700; font-size: 26px; line-height: 1.2">La scène ouverte</h3>
+<p style="margin: 10px 0 0; font-size: 18px; line-height: 1.55">De la musique en direct, et d'autres envies qui montent sur scène.</p>
+</div>
+<div style="flex: 1 1 280px; min-width: 0; background: #FFFFFF; border-radius: 24px; padding: 32px 28px; box-sizing: border-box">
+<div style="width: 14px; height: 14px; border-radius: 50%; background: #FF5E50" aria-hidden="true"></div>
+<h3 style="margin: 16px 0 0; font-weight: 700; font-size: 26px; line-height: 1.2">Les ateliers</h3>
+<p style="margin: 10px 0 0; font-size: 18px; line-height: 1.55">Pour les enfants, les jeunes et les moins jeunes : éveil, programmation, instruments de musique en circuits de papier, cours de mix, cuisine avec des chefs.</p>
+</div>
+<div style="flex: 1 1 280px; min-width: 0; background: #FFFFFF; border-radius: 24px; padding: 32px 28px; box-sizing: border-box">
+<div style="width: 14px; height: 14px; border-radius: 50%; background: #2E8F8A" aria-hidden="true"></div>
+<h3 style="margin: 16px 0 0; font-weight: 700; font-size: 26px; line-height: 1.2">Les expositions</h3>
+<p style="margin: 10px 0 0; font-size: 18px; line-height: 1.55">Des œuvres et des photos au mur, renouvelées tous les deux ou trois mois.</p>
+</div>
+</div>
+<p style="margin: 40px 0 0; max-width: 680px; font-size: 19px; line-height: 1.6">Les classes sont les bienvenues. Une envie de jouer, d'animer un atelier ou d'exposer ? <a href="mailto:contact@soucoupeflottante.com" data-ev="prog-contact" style="text-decoration: underline; text-underline-offset: 3px">Écrivez-nous</a>.</p>
+<div style="margin-top: 44px; max-width: 640px">
+<h3 style="margin: 0 0 16px; font-weight: 700; font-size: 26px; line-height: 1.2">Recevoir le programme</h3>
+<form class="sub" data-lang="fr" data-ok="Merci, c'est noté." data-err="Quelque chose n'a pas marché. Vous pouvez réessayer, ou écrire à contact@soucoupeflottante.com." data-bad="Cette adresse ne semble pas complète." novalidate>
+<input type="email" name="email" autocomplete="email" placeholder="Votre e-mail" aria-label="Votre e-mail" required>
+<input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+<button type="submit" data-ev="subscribe">Je m'inscris</button>
+</form>
+<p class="submsg" role="status" aria-live="polite"></p>
+<p class="subnote">Un message de temps en temps, avec ce qui se passe à la Soucoupe. Pour arrêter, un mot à contact@soucoupeflottante.com suffit.</p>
+</div>
+</div>
+</section>
+
 <!-- VENIR -->
 <section id="venir" style="background: #2D4A78; color: #FBF3E4">
 <div style="max-width: 1120px; margin: 0 auto; padding: 88px 24px 96px; box-sizing: border-box">
@@ -243,6 +306,18 @@ a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
 </main>
 
 <footer style="background: #213A60; color: #E7DDF0">
+<div style="max-width: 1120px; margin: 0 auto; padding: 44px 24px 0; box-sizing: border-box">
+<p style="margin: 0 0 14px; font-weight: 700; font-size: 20px">Recevoir le programme</p>
+<div style="max-width: 640px">
+<form class="sub" data-lang="fr" data-ok="Merci, c'est noté." data-err="Quelque chose n'a pas marché. Vous pouvez réessayer, ou écrire à contact@soucoupeflottante.com." data-bad="Cette adresse ne semble pas complète." novalidate>
+<input type="email" name="email" autocomplete="email" placeholder="Votre e-mail" aria-label="Votre e-mail" required>
+<input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+<button type="submit" data-ev="subscribe">Je m'inscris</button>
+</form>
+<p class="submsg" role="status" aria-live="polite"></p>
+<p class="subnote">Un message de temps en temps, avec ce qui se passe à la Soucoupe. Pour arrêter, un mot à contact@soucoupeflottante.com suffit.</p>
+</div>
+</div>
 <div style="max-width: 1120px; margin: 0 auto; padding: 32px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; font-size: 15px; line-height: 1.6">
 <img src="logo.svg" alt="Soucoupe Flottante" style="display: block; width: 140px; height: auto">
 <span style="max-width: 560px">Soucoupe Flottante, SIRET 106 116 684 00015, 42 rue Marx Dormoy, 75018 Paris. Directeur de la publication : Vincent Lansonneur.</span>
@@ -258,6 +333,17 @@ b.addEventListener("click",function(){set(true)});
 document.getElementById("menux").addEventListener("click",function(){set(false)});
 m.addEventListener("click",function(e){if(e.target.closest("a"))set(false)});
 document.addEventListener("keydown",function(e){if(e.key==="Escape")set(false)});})();
+</script>
+<script>
+(function(){document.querySelectorAll("form.sub").forEach(function(f){
+var msg=f.parentNode.querySelector(".submsg");
+f.addEventListener("submit",function(e){e.preventDefault();
+var em=f.elements.email.value.trim();
+if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){msg.textContent=f.getAttribute("data-bad");return}
+msg.textContent="";
+fetch("/subscribe",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({email:em,lang:f.getAttribute("data-lang"),website:f.elements.website.value})})
+.then(function(r){if(r.ok){msg.textContent=f.getAttribute("data-ok");f.reset()}else{msg.textContent=f.getAttribute("data-err")}})
+.catch(function(){msg.textContent=f.getAttribute("data-err")});});});})();
 </script>
 <script defer src="/tally.js" data-app="soucoupe"></script>
 </body>

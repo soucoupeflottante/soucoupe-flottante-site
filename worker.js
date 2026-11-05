@@ -1,5 +1,5 @@
 // Tally: small, cookieless statistics. Counts are anonymous hourly totals kept in D1.
-// Only /tally/* reaches this Worker; everything else is served as static files.
+// Only /tally/*, /subscribe and /subscribers reach this Worker; everything else is served as static files.
 
 const NAME_OK = /^[a-z0-9:_.\-]{1,48}$/;
 const APP_OK = /^[a-z0-9_\-]{1,24}$/;
@@ -17,6 +17,9 @@ function setup(db) {
       ),
       db.prepare(
         "CREATE TABLE IF NOT EXISTS abuse (h TEXT NOT NULL, day TEXT NOT NULL, c INTEGER NOT NULL, PRIMARY KEY (h, day))"
+      ),
+      db.prepare(
+        "CREATE TABLE IF NOT EXISTS subscribers (email TEXT PRIMARY KEY, lang TEXT NOT NULL, created TEXT NOT NULL)"
       ),
     ]);
   }
@@ -139,11 +142,67 @@ async function stats(request, env, url) {
   });
 }
 
+// Programme sign-ups: an email address, the page language and the date. Nothing else is kept.
+const EMAIL_OK = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+const SUBSCRIBE_DAILY_CAP = 20;
+
+async function subscribe(request, env, url) {
+  if (!sameOrigin(request, url)) return new Response(null, { status: 403 });
+  let body;
+  try {
+    const text = await request.text();
+    if (text.length > 2000) return new Response(null, { status: 413 });
+    body = JSON.parse(text);
+  } catch {
+    return new Response(null, { status: 400 });
+  }
+  // Hidden field that only bots fill in: pretend it worked.
+  if (body.website) return new Response(null, { status: 204 });
+  const email = String(body.email || "").trim().toLowerCase();
+  if (email.length > 254 || !EMAIL_OK.test(email)) return new Response(null, { status: 400 });
+  const lang = body.lang === "en" ? "en" : "fr";
+
+  const db = env.DB;
+  await setup(db);
+  const now = new Date();
+  const day = now.toISOString().slice(0, 10);
+  const h = "sub:" + (await networkHash(request.headers.get("cf-connecting-ip")));
+  const row = await db
+    .prepare(
+      "INSERT INTO abuse (h, day, c) VALUES (?, ?, 1) ON CONFLICT(h, day) DO UPDATE SET c = c + 1 RETURNING c"
+    )
+    .bind(h, day)
+    .first();
+  if (row && row.c > SUBSCRIBE_DAILY_CAP) return new Response(null, { status: 429 });
+
+  await db
+    .prepare("INSERT OR IGNORE INTO subscribers (email, lang, created) VALUES (?, ?, ?)")
+    .bind(email, lang, now.toISOString())
+    .run();
+  return new Response(null, { status: 204 });
+}
+
+// The list, as a CSV, for whoever sends the programme. Same secret key as the statistics.
+async function subscribers(request, env, url) {
+  const key = url.searchParams.get("key") || "";
+  if (!env.STATS_KEY || key.length !== env.STATS_KEY.length || key !== env.STATS_KEY) {
+    return json({ error: "forbidden" }, 403);
+  }
+  await setup(env.DB);
+  const { results } = await env.DB.prepare("SELECT email, lang, created FROM subscribers ORDER BY created").all();
+  const lines = ["email,lang,created", ...results.map((r) => [r.email, r.lang, r.created].join(","))];
+  return new Response(lines.join("\n") + "\n", {
+    headers: { "content-type": "text/csv; charset=utf-8", "cache-control": "no-store" },
+  });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.pathname === "/tally/hit" && request.method === "POST") return hit(request, env, url);
     if (url.pathname === "/tally/stats" && request.method === "GET") return stats(request, env, url);
+    if (url.pathname === "/subscribe" && request.method === "POST") return subscribe(request, env, url);
+    if (url.pathname === "/subscribers" && request.method === "GET") return subscribers(request, env, url);
     return new Response("Not found", { status: 404 });
   },
 };
