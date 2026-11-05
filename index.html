@@ -16,6 +16,15 @@ a{color:inherit}
 .nav a:hover{color:#FF5E50}
 .btn:hover{transform:translateY(-2px)}
 .btn{transition:transform .15s ease}
+.ig{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;text-decoration:none}
+.ig:hover{color:#FF5E50}
+.burger{display:none;align-items:center;justify-content:center;width:48px;height:48px;background:none;border:0;color:inherit;cursor:pointer;padding:0}
+.right{display:flex;align-items:center;gap:8px 20px}
+#menu{font-family:'DM Sans',sans-serif;display:none;position:fixed;inset:0;z-index:50;background:#FF5E50;color:#1C2250;flex-direction:column;justify-content:center;padding:32px 36px;box-sizing:border-box}
+#menu.open{display:flex}
+#menu a{display:block;text-decoration:none;font-weight:700;font-size:34px;letter-spacing:.04em;text-transform:uppercase;padding:12px 0}
+#menu .x{position:absolute;top:20px;right:20px;width:48px;height:48px;background:none;border:0;color:#1C2250;cursor:pointer;font-size:34px;line-height:1}
+@media (max-width:700px){.nav{display:none !important}.burger{display:inline-flex}}
 a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
 @keyframes drift{0%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-14px) rotate(3deg)}100%{transform:translateY(0) rotate(-5deg)}}
 .float{animation:drift 6s ease-in-out infinite}
@@ -24,6 +33,13 @@ a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
 
 </head>
 <body id="page">
+<div id="menu" role="dialog" aria-label="Menu">
+<button class="x" id="menux" aria-label="Fermer">&times;</button>
+<a href="#carte" data-ev="menu-carte">La carte</a>
+<a href="#lieu" data-ev="menu-lieu">Le lieu</a>
+<a href="#venir" data-ev="menu-venir">Venir</a>
+<a href="https://www.instagram.com/soucoupe.flottante/" data-ev="menu-instagram" target="_blank" rel="noopener">Instagram</a>
+</div>
 
 
 <div style="display: flex; flex-direction: column; background: #FBF3E4; color: #1C2250; font-family: 'DM Sans', sans-serif">
@@ -32,15 +48,16 @@ a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
 <header style="background: #1C2250; color: #FBF3E4">
 <div style="max-width: 1120px; margin: 0 auto; padding: 24px 24px 88px; box-sizing: border-box">
 
-<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px">
-<a href="#top" style="display: flex; align-items: center; text-decoration: none; min-height: 48px">
-<img src="logo.svg" alt="Soucoupe Flottante" style="display: block; width: 120px; height: auto">
-</a>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 12px 32px">
+<div class="right">
 <nav class="nav" style="display: flex; flex-wrap: wrap; gap: 4px 28px; font-size: 17px; font-weight: 500">
 <a href="#carte" data-ev="nav-carte" style="display: inline-flex; align-items: center; min-height: 48px">La carte</a>
 <a href="#lieu" data-ev="nav-lieu" style="display: inline-flex; align-items: center; min-height: 48px">Le lieu</a>
 <a href="#venir" data-ev="nav-venir" style="display: inline-flex; align-items: center; min-height: 48px">Venir</a>
 </nav>
+<a class="ig" href="https://www.instagram.com/soucoupe.flottante/" data-ev="instagram-top" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+<button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
+</div>
 </div>
 
 <div id="top" style="display: flex; flex-wrap: wrap; align-items: center; gap: 56px; margin-top: 56px">
@@ -225,7 +242,7 @@ a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
 <h2 style="margin: 0; font-family: 'Delicious Handrawn', cursive; font-weight: 400; font-size: 72px; line-height: 1; color: #FF5E50">Venir</h2>
 <p style="margin: 28px 0 0; font-size: 26px; line-height: 1.4; font-weight: 500">42 rue Marx Dormoy<br>75018 Paris</p>
 <p style="margin: 14px 0 0; font-size: 18px; line-height: 1.55; color: #E7DDF0">Métro Marx Dormoy, ligne 12</p>
-<p style="margin: 28px 0 0; font-size: 18px; line-height: 1.7">Mardi – mercredi : 8h – minuit<br>Jeudi – samedi : 9h – 2h<br>Dimanche : 9h – 17h<br>Instagram : <a href="https://www.instagram.com/soucoupe.flottante/" data-ev="instagram" target="_blank" rel="noopener" style="text-decoration: underline; text-underline-offset: 3px">@soucoupe.flottante</a></p>
+<p style="margin: 28px 0 0; font-size: 18px; line-height: 1.7">Mardi – mercredi : 8h – minuit<br>Jeudi – samedi : 9h – 2h<br>Dimanche : 9h – 17h<br>E-mail : <a href="mailto:contact@soucoupeflottante.com" data-ev="email" style="text-decoration: underline; text-underline-offset: 3px">contact@soucoupeflottante.com</a><br>Instagram : <a href="https://www.instagram.com/soucoupe.flottante/" data-ev="instagram" target="_blank" rel="noopener" style="text-decoration: underline; text-underline-offset: 3px">@soucoupe.flottante</a></p>
 <a class="btn" data-ev="maps" href="https://maps.app.goo.gl/czW32poKdbgRFdst9" style="display: inline-flex; align-items: center; justify-content: center; min-height: 52px; margin-top: 32px; padding: 0 28px; border-radius: 999px; background: #FF5E50; color: #1C2250; font-size: 17px; font-weight: 700; text-decoration: none">Ouvrir dans Google Maps</a>
 </div>
 
@@ -248,6 +265,14 @@ a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
 
 </div>
 
+<script>
+(function(){var m=document.getElementById("menu"),b=document.getElementById("burger");
+function set(o){m.classList.toggle("open",o);b.setAttribute("aria-expanded",o);document.body.style.overflow=o?"hidden":""}
+b.addEventListener("click",function(){set(true)});
+document.getElementById("menux").addEventListener("click",function(){set(false)});
+m.addEventListener("click",function(e){if(e.target.closest("a"))set(false)});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")set(false)});})();
+</script>
 <script defer src="/tally.js" data-app="soucoupe"></script>
 </body>
 </html>
