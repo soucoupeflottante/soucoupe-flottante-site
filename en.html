@@ -29,10 +29,13 @@ a{color:inherit}
 @media (max-width:700px){.nav{display:none !important}.burger{display:inline-flex}}
 .lang{display:inline-flex;align-items:center;min-height:48px;padding:0 4px;text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.08em}
 .lang:hover{color:#FF5E50}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(2deg)}}
+.bob{animation:bob 6s ease-in-out infinite}
+.obj{filter:drop-shadow(0 10px 14px rgba(0,0,0,.28))}
 a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
 @keyframes drift{0%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-14px) rotate(3deg)}100%{transform:translateY(0) rotate(-5deg)}}
 .float{animation:drift 6s ease-in-out infinite}
-@media (prefers-reduced-motion: reduce){.float{animation:none}.btn{transition:none}}
+@media (prefers-reduced-motion: reduce){.bob{animation:none}.float{animation:none}.btn{transition:none}}
 </style>
 
 </head>
@@ -50,7 +53,7 @@ a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
 <div style="display: flex; flex-direction: column; background: #FBF3E4; color: #1C2250; font-family: 'DM Sans', sans-serif">
 
 <!-- HERO -->
-<header style="background: #1C2250; color: #FBF3E4">
+<header style="background: #2D4A78; color: #FBF3E4">
 <div style="max-width: 1120px; margin: 0 auto; padding: 24px 24px 88px; box-sizing: border-box">
 
 <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 12px 32px">
@@ -81,17 +84,7 @@ a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
 <div style="flex: 1 1 380px; min-width: 0; position: relative; padding: 0 0 28px 28px">
 <div style="position: absolute; left: 0; bottom: 0; right: 28px; top: 28px; background: #F07A5F; border-radius: 240px 240px 28px 28px"></div>
 <img src="lounge.jpg" alt="The lounge with its coral stage, mustard armchairs and the big painting" style="position: relative; display: block; width: 100%; height: 520px; object-fit: cover; border-radius: 240px 240px 28px 28px">
-<svg class="float" viewBox="0 0 200 110" width="150" height="83" aria-hidden="true" style="position: absolute; top: -22px; right: -6px">
-<path d="M84 46 L74 22" fill="none" stroke="#FBF3E4" stroke-width="7" stroke-linecap="round"></path>
-<path d="M118 46 L130 20" fill="none" stroke="#FBF3E4" stroke-width="7" stroke-linecap="round"></path>
-<circle cx="73" cy="17" r="7" fill="#FF5E50" stroke="#FBF3E4" stroke-width="5"></circle>
-<circle cx="131" cy="15" r="7" fill="#FF5E50" stroke="#FBF3E4" stroke-width="5"></circle>
-<path d="M62 70 C64 36 138 34 140 70 Z" fill="#2E8F8A" stroke="#FBF3E4" stroke-width="7" stroke-linejoin="round"></path>
-<ellipse cx="100" cy="76" rx="84" ry="22" transform="rotate(-6 100 76)" fill="#E0AD2B" stroke="#FBF3E4" stroke-width="7"></ellipse>
-<circle cx="60" cy="84" r="5" fill="#FBF3E4"></circle>
-<circle cx="100" cy="80" r="5" fill="#FBF3E4"></circle>
-<circle cx="140" cy="76" r="5" fill="#FBF3E4"></circle>
-</svg>
+<img class="bob obj" src="cup.png" alt="" aria-hidden="true" width="170" height="170" style="position: absolute; top: -44px; right: -18px; width: 170px; height: 170px">
 </div>
 
 </div>
@@ -238,7 +231,7 @@ a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
 </section>
 
 <!-- VENIR -->
-<section id="venir" style="background: #1C2250; color: #FBF3E4">
+<section id="venir" style="background: #2D4A78; color: #FBF3E4">
 <div style="max-width: 1120px; margin: 0 auto; padding: 88px 24px 96px; box-sizing: border-box">
 <div style="display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
 
@@ -260,7 +253,7 @@ a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
 
 </main>
 
-<footer style="background: #141A40; color: #E7DDF0">
+<footer style="background: #213A60; color: #E7DDF0">
 <div style="max-width: 1120px; margin: 0 auto; padding: 32px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; font-size: 15px; line-height: 1.6">
 <img src="logo.svg" alt="Soucoupe Flottante" style="display: block; width: 140px; height: auto">
 <span style="max-width: 560px">Soucoupe Flottante, SIRET 106 116 684 00015, 42 rue Marx Dormoy, 75018 Paris. Publication director: Vincent Lansonneur.</span>
