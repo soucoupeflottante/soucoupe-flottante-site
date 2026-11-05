@@ -5,7 +5,7 @@
   "assets": {
     "directory": "./",
     "binding": "ASSETS",
-    "run_worker_first": ["/tally/*"]
+    "run_worker_first": ["/tally/*", "/subscribe", "/subscribers"]
   },
   "routes": [
     { "pattern": "soucoupeflottante.com", "custom_domain": true },
