@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soucoupe Flottante, café and bar in Paris 18e</title>
+<meta name="description" content="Soucoupe Flottante, café by day, bar by night, 42 rue Marx Dormoy, Paris 18e.">
+<link rel="alternate" hreflang="fr" href="https://soucoupeflottante.com/">
+<link rel="alternate" hreflang="en" href="https://soucoupeflottante.com/en">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 110'%3E%3Cellipse cx='100' cy='76' rx='84' ry='22' transform='rotate(-6 100 76)' fill='%23E0AD2B' stroke='%231C2250' stroke-width='9'/%3E%3Cpath d='M62 70C64 36 138 34 140 70Z' fill='%232E8F8A' stroke='%231C2250' stroke-width='9'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+body{margin:0}
+a{color:inherit}
+.nav a{text-decoration:none}
+.nav a:hover{color:#FF5E50}
+.btn:hover{transform:translateY(-2px)}
+.btn{transition:transform .15s ease}
+.ig{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;text-decoration:none}
+.ig:hover{color:#FF5E50}
+.burger{display:none;align-items:center;justify-content:center;width:48px;height:48px;background:none;border:0;color:inherit;cursor:pointer;padding:0}
+.right{display:flex;align-items:center;gap:8px 20px}
+#menu{font-family:'DM Sans',sans-serif;display:none;position:fixed;inset:0;z-index:50;background:#FF5E50;color:#1C2250;flex-direction:column;justify-content:center;padding:32px 36px;box-sizing:border-box}
+#menu.open{display:flex}
+#menu a{display:block;text-decoration:none;font-weight:700;font-size:34px;letter-spacing:.04em;text-transform:uppercase;padding:12px 0}
+#menu .x{position:absolute;top:20px;right:20px;width:48px;height:48px;background:none;border:0;color:#1C2250;cursor:pointer;font-size:34px;line-height:1}
+@media (max-width:700px){.nav{display:none !important}.burger{display:inline-flex}}
+.lang{display:inline-flex;align-items:center;min-height:48px;padding:0 4px;text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.08em}
+.lang:hover{color:#FF5E50}
+a:focus-visible{outline:3px solid #E0AD2B;outline-offset:3px}
+@keyframes drift{0%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-14px) rotate(3deg)}100%{transform:translateY(0) rotate(-5deg)}}
+.float{animation:drift 6s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){.float{animation:none}.btn{transition:none}}
+</style>
+
+</head>
+<body id="page">
+<div id="menu" role="dialog" aria-label="Menu">
+<button class="x" id="menux" aria-label="Close">&times;</button>
+<a href="#carte" data-ev="menu-carte">Menu</a>
+<a href="#lieu" data-ev="menu-lieu">The place</a>
+<a href="#venir" data-ev="menu-venir">Visit</a>
+<a href="/" hreflang="fr" lang="fr" data-ev="menu-lang">Français</a>
+<a href="https://www.instagram.com/soucoupe.flottante/" data-ev="menu-instagram" target="_blank" rel="noopener">Instagram</a>
+</div>
+
+
+<div style="display: flex; flex-direction: column; background: #FBF3E4; color: #1C2250; font-family: 'DM Sans', sans-serif">
+
+<!-- HERO -->
+<header style="background: #1C2250; color: #FBF3E4">
+<div style="max-width: 1120px; margin: 0 auto; padding: 24px 24px 88px; box-sizing: border-box">
+
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 12px 32px">
+<div class="right">
+<nav class="nav" style="display: flex; flex-wrap: wrap; gap: 4px 28px; font-size: 17px; font-weight: 500">
+<a href="#carte" data-ev="nav-carte" style="display: inline-flex; align-items: center; min-height: 48px">Menu</a>
+<a href="#lieu" data-ev="nav-lieu" style="display: inline-flex; align-items: center; min-height: 48px">The place</a>
+<a href="#venir" data-ev="nav-venir" style="display: inline-flex; align-items: center; min-height: 48px">Visit</a>
+</nav>
+<a class="lang" href="/" hreflang="fr" lang="fr" data-ev="lang-fr" aria-label="Français">FR</a>
+<a class="ig" href="https://www.instagram.com/soucoupe.flottante/" data-ev="instagram-top" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+<button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
+</div>
+</div>
+
+<div id="top" style="display: flex; flex-wrap: wrap; align-items: center; gap: 56px; margin-top: 56px">
+
+<div style="flex: 1 1 420px; min-width: 0">
+<h1 style="margin: 0"><img src="logo.svg" alt="Soucoupe Flottante" style="display: block; width: 100%; max-width: 460px; height: auto"></h1>
+<p style="margin: 28px 0 0; font-size: 26px; line-height: 1.35; font-weight: 500">Café by day, bar by night, sofas all the time.</p>
+<p style="margin: 14px 0 0; font-size: 18px; line-height: 1.5; color: #E7DDF0">42 rue Marx Dormoy, Paris 18e</p>
+<div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px">
+<a class="btn" data-ev="btn-carte" href="#carte" style="display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 28px; border-radius: 999px; background: #FF5E50; color: #1C2250; font-size: 17px; font-weight: 700; text-decoration: none">See the menu</a>
+<a class="btn" data-ev="btn-trouver" href="#venir" style="display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 28px; border-radius: 999px; border: 2px solid #FBF3E4; color: #FBF3E4; font-size: 17px; font-weight: 700; text-decoration: none; box-sizing: border-box">Find us</a>
+</div>
+</div>
+
+<div style="flex: 1 1 380px; min-width: 0; position: relative; padding: 0 0 28px 28px">
+<div style="position: absolute; left: 0; bottom: 0; right: 28px; top: 28px; background: #F07A5F; border-radius: 240px 240px 28px 28px"></div>
+<img src="lounge.jpg" alt="The lounge with its coral stage, mustard armchairs and the big painting" style="position: relative; display: block; width: 100%; height: 520px; object-fit: cover; border-radius: 240px 240px 28px 28px">
+<svg class="float" viewBox="0 0 200 110" width="150" height="83" aria-hidden="true" style="position: absolute; top: -22px; right: -6px">
+<path d="M84 46 L74 22" fill="none" stroke="#FBF3E4" stroke-width="7" stroke-linecap="round"></path>
+<path d="M118 46 L130 20" fill="none" stroke="#FBF3E4" stroke-width="7" stroke-linecap="round"></path>
+<circle cx="73" cy="17" r="7" fill="#FF5E50" stroke="#FBF3E4" stroke-width="5"></circle>
+<circle cx="131" cy="15" r="7" fill="#FF5E50" stroke="#FBF3E4" stroke-width="5"></circle>
+<path d="M62 70 C64 36 138 34 140 70 Z" fill="#2E8F8A" stroke="#FBF3E4" stroke-width="7" stroke-linejoin="round"></path>
+<ellipse cx="100" cy="76" rx="84" ry="22" transform="rotate(-6 100 76)" fill="#E0AD2B" stroke="#FBF3E4" stroke-width="7"></ellipse>
+<circle cx="60" cy="84" r="5" fill="#FBF3E4"></circle>
+<circle cx="100" cy="80" r="5" fill="#FBF3E4"></circle>
+<circle cx="140" cy="76" r="5" fill="#FBF3E4"></circle>
+</svg>
+</div>
+
+</div>
+</div>
+</header>
+
+<main>
+
+<!-- INTRO -->
+<section style="background: #FBF3E4">
+<div style="max-width: 800px; margin: 0 auto; padding: 88px 24px; box-sizing: border-box; text-align: center">
+<p style="margin: 0; font-size: 30px; line-height: 1.4; font-weight: 500">A coral stage, mustard armchairs, a big painting and old wooden speakers. Come for a coffee while watching the street, and stay for a craft beer, a glass of wine or a bit of music.</p>
+<div style="display: flex; justify-content: center; gap: 14px; margin-top: 40px" aria-hidden="true">
+<div style="width: 14px; height: 14px; border-radius: 50%; background: #E0AD2B"></div>
+<div style="width: 14px; height: 14px; border-radius: 50%; background: #FF5E50"></div>
+<div style="width: 14px; height: 14px; border-radius: 50%; background: #2E8F8A"></div>
+</div>
+</div>
+</section>
+
+<!-- CARTE -->
+<section id="carte" style="background: #E0AD2B">
+<div style="max-width: 1120px; margin: 0 auto; padding: 88px 24px 96px; box-sizing: border-box">
+<h2 style="margin: 0; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: clamp(40px, 8vw, 64px); line-height: 1.05; letter-spacing: -0.01em">The menu</h2>
+<p style="margin: 14px 0 0; font-size: 20px; line-height: 1.5">Written on the chalkboard, it changes with what arrives.</p>
+
+<div style="margin-top: 48px; background: #FFFFFF; border: 10px solid #26262C; border-radius: 36px; padding: 40px 40px 48px; box-sizing: border-box; color: #1A1A24; font-family: 'DM Sans', sans-serif; transform: rotate(-0.6deg); position: relative">
+
+<svg viewBox="0 0 200 110" width="86" height="47" aria-hidden="true" style="position: absolute; top: 18px; right: 28px">
+<path d="M84 46 L74 22" fill="none" stroke="#1A1A24" stroke-width="5" stroke-linecap="round"></path>
+<path d="M118 46 L130 20" fill="none" stroke="#1A1A24" stroke-width="5" stroke-linecap="round"></path>
+<circle cx="73" cy="17" r="6" fill="none" stroke="#1A1A24" stroke-width="4"></circle>
+<circle cx="131" cy="15" r="6" fill="none" stroke="#1A1A24" stroke-width="4"></circle>
+<path d="M62 70 C64 36 138 34 140 70" fill="none" stroke="#1A1A24" stroke-width="5" stroke-linecap="round"></path>
+<ellipse cx="100" cy="76" rx="84" ry="22" transform="rotate(-6 100 76)" fill="none" stroke="#1A1A24" stroke-width="5"></ellipse>
+</svg>
+
+<div style="display: flex; flex-wrap: wrap; gap: 48px 64px">
+
+<div style="flex: 1 1 320px; min-width: 0">
+<h3 style="margin: 0; font-weight: 400; font-size: 44px; line-height: 1.1; border-bottom: 3px solid #1A1A24; padding-bottom: 6px">Craft beers</h3>
+<div style="display: flex; justify-content: flex-end; margin-top: 12px; font-size: 22px; color: #55555F">
+<span style="width: 64px; text-align: right">25 cl</span>
+<span style="width: 72px; text-align: right">50 cl</span>
+</div>
+<div style="display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; font-size: 30px; line-height: 1.2">
+<span>La Bohème Blonde<br><span style="font-size: 22px; color: #55555F">5,5°</span></span>
+<span style="display: flex"><span style="width: 64px; text-align: right">3,50</span><span style="width: 72px; text-align: right">6,50</span></span>
+</div>
+<div style="display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; font-size: 30px; line-height: 1.2">
+<span>Beverly IPA<br><span style="font-size: 22px; color: #55555F">6,5°</span></span>
+<span style="display: flex"><span style="width: 64px; text-align: right">4,50</span><span style="width: 72px; text-align: right">8</span></span>
+</div>
+<div style="display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; font-size: 30px; line-height: 1.2">
+<span>Sencho Blanche Yuzu<br><span style="font-size: 22px; color: #55555F">5,5°</span></span>
+<span style="display: flex"><span style="width: 64px; text-align: right">4,50</span><span style="width: 72px; text-align: right">8</span></span>
+</div>
+<div style="display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; font-size: 30px; line-height: 1.2">
+<span>Cidre Kerné<br><span style="font-size: 22px; color: #55555F">5,5°</span></span>
+<span style="display: flex"><span style="width: 64px; text-align: right">4</span><span style="width: 72px; text-align: right">7,50</span></span>
+</div>
+
+<h3 style="margin: 48px 0 0; font-weight: 400; font-size: 44px; line-height: 1.1; border-bottom: 3px solid #1A1A24; padding-bottom: 6px">Organic coffees</h3>
+<p style="margin: 14px 0 0; font-size: 30px; line-height: 1.5">Helvète, Navigateur, Napolitain, Riviera</p>
+</div>
+
+<div style="flex: 1.4 1 380px; min-width: 0">
+<h3 style="margin: 0; font-weight: 400; font-size: 44px; line-height: 1.1; border-bottom: 3px solid #1A1A24; padding-bottom: 6px">Winemakers' wines</h3>
+<div style="margin-top: 14px">
+<div style="display: flex; justify-content: flex-end; font-size: 22px; color: #55555F"><span style="width: 64px; text-align: right">12,5 cl</span><span style="width: 72px; text-align: right">75 cl</span></div>
+<div style="margin: 18px 0 8px; font-size: 26px; color: #55555F; text-decoration: underline">White</div>
+<div style="display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; font-size: 30px; line-height: 1.2">
+<span>Le Grand Frais<br><span style="font-size: 22px; color: #55555F">Hautes Noëlles</span></span>
+<span style="display: flex; flex: none"><span style="width: 64px; text-align: right">4</span><span style="width: 72px; text-align: right">19</span></span>
+</div>
+<div style="display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; font-size: 30px; line-height: 1.2">
+<span>Toucher Terre<br><span style="font-size: 22px; color: #55555F">Sagesse des Sols</span></span>
+<span style="display: flex; flex: none"><span style="width: 64px; text-align: right"></span><span style="width: 72px; text-align: right">35</span></span>
+</div>
+<div style="margin: 18px 0 8px; font-size: 26px; color: #55555F; text-decoration: underline">Red</div>
+<div style="display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; font-size: 30px; line-height: 1.2">
+<span>Mon P'tit Camion<br><span style="font-size: 22px; color: #55555F">Vignoble Simian</span></span>
+<span style="display: flex; flex: none"><span style="width: 64px; text-align: right">4</span><span style="width: 72px; text-align: right">19</span></span>
+</div>
+<div style="display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; font-size: 30px; line-height: 1.2">
+<span>Voulez-Vous Gamay ?<br><span style="font-size: 22px; color: #55555F">Hautes Noëlles</span></span>
+<span style="display: flex; flex: none"><span style="width: 64px; text-align: right"></span><span style="width: 72px; text-align: right">25</span></span>
+</div>
+<div style="display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; font-size: 30px; line-height: 1.2">
+<span>Terrasses du Larzac<br><span style="font-size: 22px; color: #55555F">La Petite Parcelle</span></span>
+<span style="display: flex; flex: none"><span style="width: 64px; text-align: right"></span><span style="width: 72px; text-align: right">45</span></span>
+</div>
+<div style="display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; font-size: 30px; line-height: 1.2">
+<span>Velours<br><span style="font-size: 22px; color: #55555F">Sagesse des Sols</span></span>
+<span style="display: flex; flex: none"><span style="width: 64px; text-align: right"></span><span style="width: 72px; text-align: right">32</span></span>
+</div>
+<div style="margin: 18px 0 8px; font-size: 26px; color: #55555F; text-decoration: underline">Pét'Nat'</div>
+<div style="display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; font-size: 30px; line-height: 1.2">
+<span>Crépus'Bulles<br><span style="font-size: 22px; color: #55555F">Hautes Noëlles</span></span>
+<span style="display: flex; flex: none"><span style="width: 64px; text-align: right"></span><span style="width: 72px; text-align: right">26</span></span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<!-- LIEU -->
+<section id="lieu" style="background: #F2B8B5">
+<div style="max-width: 1120px; margin: 0 auto; padding: 88px 24px 96px; box-sizing: border-box">
+<h2 style="margin: 0; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: clamp(40px, 8vw, 64px); line-height: 1.05; letter-spacing: -0.01em">The place</h2>
+<p style="margin: 14px 0 0; max-width: 640px; font-size: 20px; line-height: 1.55">Coral stage, a green counter ringed in gold, wooden speakers, a disco ball by the window and lots of plants. In the evening, candles on the tables and little stars on the ceiling.</p>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px; margin-top: 48px; align-items: flex-start">
+<figure style="margin: 0; flex: 2 1 520px; min-width: 0">
+<img src="lounge.jpg" alt="Mustard armchairs and a blue sofa in front of the big painting" style="display: block; width: 100%; height: 440px; object-fit: cover; border-radius: 24px">
+<figcaption style="margin-top: 12px; font-size: 16px; line-height: 1.5">The lounge, by the window</figcaption>
+</figure>
+<figure style="margin: 0; flex: 1 1 240px; min-width: 0">
+<img src="bar.jpg" alt="The green counter with organic coffee bags, the brass tap and an old grinder" style="display: block; width: 100%; height: 440px; object-fit: cover; border-radius: 24px">
+<figcaption style="margin-top: 12px; font-size: 16px; line-height: 1.5">The counter and its brass tap</figcaption>
+</figure>
+<figure style="margin: 0; flex: 1 1 240px; min-width: 0">
+<img src="food.jpg" alt="Bread, brownie, olive cake and small bites on the table" style="display: block; width: 100%; height: 440px; object-fit: cover; border-radius: 24px">
+<figcaption style="margin-top: 12px; font-size: 16px; line-height: 1.5">Something to nibble</figcaption>
+</figure>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px; margin-top: 24px; align-items: flex-start">
+<figure style="margin: 0; flex: 1 1 380px; min-width: 0">
+<img src="soir1.jpg" alt="The room at night, candles on the tables, a red ribbon on the floor and disco-ball stars on the ceiling" style="display: block; width: 100%; height: 420px; object-fit: cover; border-radius: 24px">
+<figcaption style="margin-top: 12px; font-size: 16px; line-height: 1.5">Evenings, by candlelight</figcaption>
+</figure>
+<figure style="margin: 0; flex: 1 1 380px; min-width: 0">
+<img src="soir2.jpg" alt="View of the room from the counter, with the big painting, the yellow cabinet and the old clock" style="display: block; width: 100%; height: 420px; object-fit: cover; border-radius: 24px">
+<figcaption style="margin-top: 12px; font-size: 16px; line-height: 1.5">From the counter, painting side</figcaption>
+</figure>
+<figure style="margin: 0; flex: 1 1 380px; min-width: 0">
+<img src="bottles.jpg" alt="The counter with the espresso machine, the brass tap, wine bottles and coffee bags" style="display: block; width: 100%; height: 420px; object-fit: cover; border-radius: 24px">
+<figcaption style="margin-top: 12px; font-size: 16px; line-height: 1.5">Espresso machine, tap and bottles</figcaption>
+</figure>
+</div>
+</div>
+</section>
+
+<!-- VENIR -->
+<section id="venir" style="background: #1C2250; color: #FBF3E4">
+<div style="max-width: 1120px; margin: 0 auto; padding: 88px 24px 96px; box-sizing: border-box">
+<div style="display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
+
+<div style="flex: 1 1 380px; min-width: 0">
+<h2 style="margin: 0; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: clamp(40px, 8vw, 64px); line-height: 1.05; letter-spacing: -0.01em; color: #FF5E50">Visit</h2>
+<p style="margin: 28px 0 0; font-size: 26px; line-height: 1.4; font-weight: 500">42 rue Marx Dormoy<br>75018 Paris</p>
+<p style="margin: 14px 0 0; font-size: 18px; line-height: 1.55; color: #E7DDF0">Metro Marx Dormoy, line 12</p>
+<p style="margin: 28px 0 0; font-size: 18px; line-height: 1.7">Tuesday – Wednesday: 8am – midnight<br>Thursday – Saturday: 9am – 2am<br>Sunday: 9am – 5pm<br>Email: <a href="mailto:contact@soucoupeflottante.com" data-ev="email" style="text-decoration: underline; text-underline-offset: 3px">contact@soucoupeflottante.com</a><br>Instagram: <a href="https://www.instagram.com/soucoupe.flottante/" data-ev="instagram" target="_blank" rel="noopener" style="text-decoration: underline; text-underline-offset: 3px">@soucoupe.flottante</a></p>
+<a class="btn" data-ev="maps" href="https://maps.app.goo.gl/czW32poKdbgRFdst9" style="display: inline-flex; align-items: center; justify-content: center; min-height: 52px; margin-top: 32px; padding: 0 28px; border-radius: 999px; background: #FF5E50; color: #1C2250; font-size: 17px; font-weight: 700; text-decoration: none">Open in Google Maps</a>
+</div>
+
+<div style="flex: 1 1 420px; min-width: 0; box-sizing: border-box; background: #FBF3E4; border-radius: 28px; padding: 48px 40px">
+<img src="logo.svg" alt="Soucoupe Flottante" style="display: block; width: 100%; max-width: 420px; height: auto; margin: 0 auto">
+</div>
+
+</div>
+</div>
+</section>
+
+</main>
+
+<footer style="background: #141A40; color: #E7DDF0">
+<div style="max-width: 1120px; margin: 0 auto; padding: 32px 24px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; font-size: 15px; line-height: 1.6">
+<img src="logo.svg" alt="Soucoupe Flottante" style="display: block; width: 140px; height: auto">
+<span style="max-width: 560px">Soucoupe Flottante, SIRET 106 116 684 00015, 42 rue Marx Dormoy, 75018 Paris. Publication director: Vincent Lansonneur.</span>
+</div>
+</footer>
+
+</div>
+
+<script>
+(function(){var m=document.getElementById("menu"),b=document.getElementById("burger");
+function set(o){m.classList.toggle("open",o);b.setAttribute("aria-expanded",o);document.body.style.overflow=o?"hidden":""}
+b.addEventListener("click",function(){set(true)});
+document.getElementById("menux").addEventListener("click",function(){set(false)});
+m.addEventListener("click",function(e){if(e.target.closest("a"))set(false)});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")set(false)});})();
+</script>
+<script defer src="/tally.js" data-app="soucoupe"></script>
+</body>
+</html>
