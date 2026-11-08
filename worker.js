@@ -118,12 +118,28 @@ async function hit(request, env, url) {
   return new Response(null, { status: 204 });
 }
 
+// Password check for the statistics and the sign-up list. The key comes in the x-stats-key header
+// (or ?key= for old links). Wrong guesses are counted per network and stop after a daily cap.
+const KEY_FAIL_CAP = 30;
+async function checkKey(request, env, url) {
+  const db = env.DB;
+  await setup(db);
+  const day = new Date().toISOString().slice(0, 10);
+  const h = "key:" + (await networkHash(request.headers.get("cf-connecting-ip")));
+  const seen = await db.prepare("SELECT c FROM abuse WHERE h = ? AND day = ?").bind(h, day).first();
+  if (seen && seen.c >= KEY_FAIL_CAP) return json({ error: "too many attempts" }, 429);
+  const key = request.headers.get("x-stats-key") || url.searchParams.get("key") || "";
+  if (env.STATS_KEY && key.length === env.STATS_KEY.length && key === env.STATS_KEY) return null;
+  await db
+    .prepare("INSERT INTO abuse (h, day, c) VALUES (?, ?, 1) ON CONFLICT(h, day) DO UPDATE SET c = c + 1")
+    .bind(h, day)
+    .run();
+  return json({ error: "forbidden" }, 403);
+}
+
 async function stats(request, env, url) {
-  const key = url.searchParams.get("key") || "";
-  if (!env.STATS_KEY || key.length !== env.STATS_KEY.length || key !== env.STATS_KEY) {
-    return json({ error: "forbidden" }, 403);
-  }
-  await setup(env.DB);
+  const denied = await checkKey(request, env, url);
+  if (denied) return denied;
   const q = url.searchParams;
   const where = [];
   const args = [];
@@ -184,11 +200,14 @@ async function subscribe(request, env, url) {
 
 // The list, as a CSV, for whoever sends the programme. Same secret key as the statistics.
 async function subscribers(request, env, url) {
-  const key = url.searchParams.get("key") || "";
-  if (!env.STATS_KEY || key.length !== env.STATS_KEY.length || key !== env.STATS_KEY) {
-    return json({ error: "forbidden" }, 403);
+  const denied = await checkKey(request, env, url);
+  if (denied) return denied;
+  if (url.searchParams.get("format") === "json") {
+    const total = await env.DB.prepare("SELECT COUNT(*) AS n FROM subscribers").first();
+    const weekAgo = new Date(Date.now() - 7 * 86400000).toISOString();
+    const week = await env.DB.prepare("SELECT COUNT(*) AS n FROM subscribers WHERE created >= ?").bind(weekAgo).first();
+    return json({ count: total ? total.n : 0, week: week ? week.n : 0 });
   }
-  await setup(env.DB);
   const { results } = await env.DB.prepare("SELECT email, lang, created FROM subscribers ORDER BY created").all();
   const lines = ["email,lang,created", ...results.map((r) => [r.email, r.lang, r.created].join(","))];
   return new Response(lines.join("\n") + "\n", {

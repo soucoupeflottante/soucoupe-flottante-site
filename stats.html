@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Statistiques, Soucoupe Flottante</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+:root{--navy:#2D4A78;--deep:#213A60;--ink:#1C2250;--cream:#FBF3E4;--sand:#F2E6CF;--coral:#FF5E50;--gold:#E0AD2B;--teal:#2E8F8A;--card:#FFFFFF;--muted:#5B6280}
+*{box-sizing:border-box}
+html{color-scheme:light}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:'DM Sans',system-ui,sans-serif;font-size:18px;line-height:1.5}
+[hidden]{display:none!important}
+header{background:var(--navy);color:var(--cream)}
+.bar{max-width:960px;margin:0 auto;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px}
+.bar a.home{display:inline-flex;align-items:center;min-height:48px}
+.bar img{display:block;width:32px;height:44px}
+.bar h1{margin:0 auto 0 14px;font-size:20px;font-weight:700;flex:1}
+button,input{font:inherit;color:inherit}
+.link{background:none;border:0;color:var(--cream);text-decoration:underline;text-underline-offset:3px;cursor:pointer;min-height:48px;padding:0 4px;font-size:16px}
+main{max-width:960px;margin:0 auto;padding:24px 16px 72px}
+.card{background:var(--card);border-radius:24px;padding:24px;margin:0 0 20px}
+h2{margin:0 0 4px;font-size:24px;line-height:1.2;font-weight:700}
+.help{margin:0 0 18px;color:var(--muted);font-size:16px}
+/* login */
+#login{max-width:460px;margin:48px auto 0}
+#login form{display:flex;flex-direction:column;gap:14px;margin-top:18px}
+#login input[type=password]{min-height:52px;padding:0 20px;border-radius:999px;border:2px solid var(--ink);background:#fff;font-size:18px}
+.check{display:flex;align-items:center;gap:10px;font-size:16px;color:var(--muted);min-height:44px}
+.check input{width:22px;height:22px;accent-color:var(--navy)}
+.btn{min-height:52px;padding:0 28px;border-radius:999px;border:0;background:var(--coral);color:var(--ink);font-weight:700;font-size:18px;cursor:pointer}
+.btn.quiet{background:var(--sand)}
+.msg{min-height:1.5em;margin:0;font-weight:500}
+.msg.err{color:#A3261A}
+/* tabs */
+.tabs{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 20px}
+.tab{min-height:48px;padding:0 22px;border-radius:999px;border:2px solid var(--navy);background:transparent;cursor:pointer;font-weight:500}
+.tab[aria-pressed=true]{background:var(--navy);color:var(--cream)}
+/* big numbers */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin:0 0 20px}
+.kpi{background:var(--card);border-radius:24px;padding:22px 24px}
+.kpi .label{font-size:16px;color:var(--muted);margin:0}
+.kpi .num{font-size:52px;line-height:1.05;font-weight:700;margin:6px 0 4px;letter-spacing:-.01em}
+.kpi .note{font-size:15px;color:var(--muted);margin:0;min-height:1.4em}
+.up{color:#1F6B3A;font-weight:700}.down{color:#A3261A;font-weight:700}
+/* charts */
+.days{display:flex;align-items:flex-end;gap:3px;height:180px;padding-top:8px}
+.days .col{flex:1;min-width:0;display:flex;align-items:flex-end;height:100%}
+.days .b{width:100%;background:var(--teal);border-radius:4px 4px 0 0;min-height:2px}
+.days .b.peak{background:var(--coral)}
+.axis{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-top:8px}
+.hours{display:flex;align-items:flex-end;gap:3px;height:140px}
+.hours .b{flex:1;background:var(--teal);border-radius:4px 4px 0 0;min-height:2px}
+.hours .b.peak{background:var(--coral)}
+.hlabels{display:flex;gap:3px;font-size:13px;color:var(--muted);margin-top:6px}
+.hlabels span{flex:1;text-align:center;min-width:0}
+.rows{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.row{display:grid;grid-template-columns:1fr auto;gap:2px 12px;align-items:baseline}
+.row .name{font-size:18px}.row .val{font-weight:700;font-size:20px}
+.row .track{grid-column:1/3;height:10px;background:var(--sand);border-radius:6px;overflow:hidden}
+.row .fill{height:100%;background:var(--teal);border-radius:6px}
+.row.zero .name,.row.zero .val{color:var(--muted);font-weight:400}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.two .card{margin:0}
+.empty{color:var(--muted);margin:0}
+.read{font-size:16px;color:var(--muted)}
+.read p{margin:0 0 10px}
+input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+@media (max-width:520px){.kpi .num{font-size:44px}.card{padding:20px}}
+</style>
+</head>
+<body>
+<header>
+<div class="bar">
+<a class="home" href="/" aria-label="Retour au site"><img src="sf-white.png" alt="" width="32" height="44"></a>
+<h1>Statistiques</h1>
+<button class="link" id="logout" type="button" hidden>Se déconnecter</button>
+</div>
+</header>
+
+<main>
+<section id="login" class="card" aria-labelledby="loginh">
+<h2 id="loginh">Les chiffres du site</h2>
+<p class="help">Cette page est réservée à l’équipe de la Soucoupe Flottante. Entrez le mot de passe pour voir les visites.</p>
+<form id="loginform" novalidate>
+<input id="pw" type="password" autocomplete="current-password" placeholder="Mot de passe" aria-label="Mot de passe" required>
+<label class="check"><input type="checkbox" id="remember"> Rester connecté sur cet appareil</label>
+<button class="btn" type="submit">Voir les chiffres</button>
+<p class="msg err" id="loginmsg" role="alert"></p>
+</form>
+</section>
+
+<div id="board" hidden>
+<div class="tabs" role="group" aria-label="Période">
+<button class="tab" type="button" data-days="7" aria-pressed="true">7 jours</button>
+<button class="tab" type="button" data-days="30" aria-pressed="false">30 jours</button>
+<button class="tab" type="button" data-days="90" aria-pressed="false">3 mois</button>
+</div>
+<p class="msg" id="status" role="status" aria-live="polite"></p>
+
+<div class="kpis" id="kpis"></div>
+
+<section class="card" aria-labelledby="dayh">
+<h2 id="dayh">Jour par jour</h2>
+<p class="help" id="daysum">Nombre de pages ouvertes chaque jour.</p>
+<div class="days" id="days" role="img" aria-label="Pages ouvertes par jour"></div>
+<div class="axis"><span id="d0"></span><span id="d1"></span></div>
+</section>
+
+<section class="card" aria-labelledby="hourh">
+<h2 id="hourh">À quelle heure</h2>
+<p class="help" id="hoursum">Heure de Paris.</p>
+<div class="hours" id="hours" role="img" aria-label="Pages ouvertes par heure"></div>
+<div class="hlabels" id="hlabels"></div>
+</section>
+
+<div class="two">
+<section class="card" aria-labelledby="pageh">
+<h2 id="pageh">Quelles pages</h2>
+<p class="help">Pages ouvertes, par page.</p>
+<ul class="rows" id="pages"></ul>
+</section>
+<section class="card" aria-labelledby="devh">
+<h2 id="devh">Sur quel appareil</h2>
+<p class="help">Téléphone, tablette ou ordinateur.</p>
+<ul class="rows" id="devices"></ul>
+</section>
+</div>
+
+<section class="card" style="margin-top:20px" aria-labelledby="acth">
+<h2 id="acth">Ce que font les visiteurs</h2>
+<p class="help">Nombre de clics.</p>
+<ul class="rows" id="actions"></ul>
+</section>
+
+<div class="two">
+<section class="card" aria-labelledby="coh">
+<h2 id="coh">D’où viennent les visites</h2>
+<p class="help">Pays, d’après la connexion.</p>
+<ul class="rows" id="countries"></ul>
+</section>
+<section class="card" aria-labelledby="lgh">
+<h2 id="lgh">Langue des visiteurs</h2>
+<p class="help">Langue du navigateur.</p>
+<ul class="rows" id="langs"></ul>
+</section>
+</div>
+
+<section class="card" style="margin-top:20px" aria-labelledby="subh">
+<h2 id="subh">Inscriptions au programme</h2>
+<p class="help" id="subsum"></p>
+<button class="btn quiet" id="csv" type="button">Télécharger la liste (CSV)</button>
+<p class="msg" id="csvmsg" role="status"></p>
+</section>
+
+<section class="card read" aria-labelledby="readh">
+<h2 id="readh">Comment lire ces chiffres</h2>
+<p>Une « page ouverte » est une page affichée sur un écran. Une même personne qui revient, ou qui ouvre plusieurs pages, compte plusieurs fois.</p>
+<p>Le site ne garde aucun cookie et aucune information sur les visiteurs, seulement des totaux par heure. Les personnes qui ont activé « Ne pas me suivre » dans leur navigateur ne sont pas comptées, et vos propres visites sur le site le sont.</p>
+</section>
+</div>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var APP = "soucoupe", STORE = "sf-stats-key";
+  var key = "", days = 7;
+  var $ = function (id) { return document.getElementById(id); };
+  var nf = new Intl.NumberFormat("fr-FR");
+
+  function saved() { try { return localStorage.getItem(STORE) || sessionStorage.getItem(STORE) || ""; } catch (e) { return ""; } }
+  function keep(k, remember) { try { sessionStorage.setItem(STORE, k); if (remember) localStorage.setItem(STORE, k); } catch (e) {} }
+  function forget() { try { localStorage.removeItem(STORE); sessionStorage.removeItem(STORE); } catch (e) {} }
+
+  function el(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
+  function clear(n) { while (n.firstChild) n.removeChild(n.firstChild); }
+
+  function api(path) {
+    return fetch(path, { headers: { "x-stats-key": key }, cache: "no-store" }).then(function (r) {
+      if (!r.ok) { var e = new Error("http"); e.status = r.status; throw e; }
+      return r;
+    });
+  }
+
+  // Paris dates and hours
+  var fDay = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Paris", year: "numeric", month: "2-digit", day: "2-digit" });
+  var fHour = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Paris", hour: "2-digit", hour12: false });
+  var fShort = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short" });
+  function parisDay(ms) { return fDay.format(ms); }
+  function parisHour(ms) { return parseInt(fHour.format(ms), 10) % 24; }
+  function dayList(n) {
+    var t = parisDay(Date.now()).split("-").map(Number), base = Date.UTC(t[0], t[1] - 1, t[2]), out = [];
+    for (var i = n - 1; i >= 0; i--) out.push(new Date(base - i * 86400000).toISOString().slice(0, 10));
+    return out;
+  }
+  function labelDay(iso) { var p = iso.split("-").map(Number); return fShort.format(new Date(Date.UTC(p[0], p[1] - 1, p[2], 12))); }
+
+  function showLogin(msg) {
+    $("board").hidden = true; $("login").hidden = false; $("logout").hidden = true;
+    $("loginmsg").textContent = msg || "";
+  }
+
+  function load() {
+    $("status").textContent = "Chargement…";
+    var from = new Date(Date.now() - (days * 2 + 3) * 86400000).toISOString().slice(0, 10);
+    var stats = api("/tally/stats?app=" + APP + "&format=json&from=" + from).then(function (r) { return r.json(); });
+    var subs = api("/subscribers?format=json").then(function (r) { return r.json(); }).catch(function (e) { if (e.status === 403 || e.status === 429) throw e; return null; });
+    return Promise.all([stats, subs]).then(function (res) {
+      $("login").hidden = true; $("board").hidden = false; $("logout").hidden = false;
+      $("status").textContent = "";
+      render(res[0], res[1]);
+    }).catch(function (e) {
+      if (e.status === 403) { forget(); showLogin("Mot de passe incorrect."); }
+      else if (e.status === 429) { showLogin("Trop d’essais aujourd’hui. Réessayez demain."); }
+      else { $("status").textContent = "Impossible de charger les chiffres pour le moment. Réessayez dans un instant."; }
+    });
+  }
+
+  function render(rows, subs) {
+    var cur = {}, prevOpen = 0, perDay = {}, perHour = [], i;
+    for (i = 0; i < 24; i++) perHour.push(0);
+    var list = dayList(days * 2), curDays = list.slice(days), prevDays = list.slice(0, days);
+    var inCur = {}, inPrev = {};
+    curDays.forEach(function (d) { inCur[d] = 1; });
+    prevDays.forEach(function (d) { inPrev[d] = 1; });
+    rows.forEach(function (r) {
+      var p = String(r.day).split("-").map(Number), ms = Date.UTC(p[0], p[1] - 1, p[2], r.hour_utc);
+      var d = parisDay(ms), n = Number(r.n) || 0;
+      if (inCur[d]) {
+        cur[r.name] = (cur[r.name] || 0) + n;
+        if (r.name === "open") { perDay[d] = (perDay[d] || 0) + n; perHour[parisHour(ms)] += n; }
+      } else if (inPrev[d] && r.name === "open") { prevOpen += n; }
+    });
+    var g = function (k) { return cur[k] || 0; };
+    var opens = g("open");
+
+    // big numbers
+    var kp = $("kpis"); clear(kp);
+    var phone = g("device:phone"), devTotal = phone + g("device:tablet") + g("device:desktop");
+    var trend = "";
+    var trendCls = "";
+    if (prevOpen > 0) {
+      var pct = Math.round((opens - prevOpen) / prevOpen * 100);
+      trend = (pct >= 0 ? "+" : "") + pct + " % par rapport aux " + days + " jours d’avant";
+      trendCls = pct >= 0 ? "up" : "down";
+    } else if (opens > 0) { trend = "Première période mesurée"; }
+    function kpi(label, num, note, cls) {
+      var k = el("div", "kpi"); k.appendChild(el("p", "label", label)); k.appendChild(el("p", "num", num));
+      var n = el("p", "note", note || ""); if (cls) n.className += " " + cls; k.appendChild(n); kp.appendChild(k);
+    }
+    kpi("Pages ouvertes", nf.format(opens), trend, trendCls);
+    kpi("Sur téléphone", devTotal ? Math.round(phone / devTotal * 100) + " %" : "–", devTotal ? "des pages ouvertes" : "");
+    kpi("Itinéraires demandés", nf.format(g("maps")), "clics sur Google Maps");
+    kpi("Inscrits au programme", subs ? nf.format(subs.count) : "–", subs ? "dont " + nf.format(subs.week) + " cette semaine" : "");
+
+    // day by day
+    var dv = $("days"); clear(dv);
+    var max = 1, peakDay = "";
+    curDays.forEach(function (d) { var v = perDay[d] || 0; if (v > max) { max = v; peakDay = d; } });
+    curDays.forEach(function (d) {
+      var v = perDay[d] || 0, col = el("div", "col"), b = el("div", "b" + (d === peakDay && v > 0 ? " peak" : ""));
+      b.style.height = (v / max * 100) + "%";
+      col.title = labelDay(d) + " : " + nf.format(v) + (v > 1 ? " pages ouvertes" : " page ouverte");
+      col.appendChild(b); dv.appendChild(col);
+    });
+    $("d0").textContent = labelDay(curDays[0]); $("d1").textContent = "aujourd’hui";
+    $("daysum").textContent = opens
+      ? "Le jour le plus actif : " + labelDay(peakDay) + ", avec " + nf.format(max) + " pages ouvertes."
+      : "Pas encore de visite sur cette période.";
+    dv.setAttribute("aria-label", "Pages ouvertes par jour, " + nf.format(opens) + " au total sur " + days + " jours");
+
+    // hours
+    var hv = $("hours"), hl = $("hlabels"); clear(hv); clear(hl);
+    var hmax = Math.max.apply(null, perHour) || 1, hp = perHour.indexOf(Math.max.apply(null, perHour));
+    perHour.forEach(function (v, h) {
+      var b = el("div", "b" + (v === hmax && v > 0 && h === hp ? " peak" : ""));
+      b.style.height = (v / hmax * 100) + "%"; b.title = h + " h : " + nf.format(v); hv.appendChild(b);
+      hl.appendChild(el("span", "", h % 6 === 0 ? String(h) : ""));
+    });
+    $("hoursum").textContent = opens ? "Le plus actif : entre " + hp + " h et " + ((hp + 1) % 24) + " h (heure de Paris)." : "Heure de Paris.";
+
+    // lists
+    function listRows(id, items, total) {
+      var ul = $(id); clear(ul);
+      var top = items.reduce(function (m, x) { return Math.max(m, x[1]); }, 0);
+      if (!top) { var li0 = el("li"); li0.appendChild(el("p", "empty", "Rien à afficher sur cette période.")); ul.appendChild(li0); return; }
+      items.forEach(function (it) {
+        var li = el("li", "row" + (it[1] ? "" : " zero"));
+        li.appendChild(el("span", "name", it[0]));
+        li.appendChild(el("span", "val", nf.format(it[1])));
+        var tr = el("div", "track"), f = el("div", "fill"); f.style.width = (it[1] / top * 100) + "%"; tr.appendChild(f); li.appendChild(tr);
+        ul.appendChild(li);
+      });
+    }
+    listRows("pages", [
+      ["Accueil", g("page:home") + g("page:index")],
+      ["Accueil (English)", g("page:en")],
+      ["À propos", g("page:apropos")],
+      ["About (English)", g("page:about")]
+    ]);
+    listRows("devices", [
+      ["Téléphone", g("device:phone")], ["Ordinateur", g("device:desktop")], ["Tablette", g("device:tablet")]
+    ]);
+    var sum = function (names) { return names.reduce(function (t, k) { return t + g(k); }, 0); };
+    listRows("actions", [
+      ["Demandent l’itinéraire (Google Maps)", g("maps")],
+      ["Ouvrent Instagram", sum(["instagram", "instagram-top", "menu-instagram"])],
+      ["Écrivent à la Soucoupe", sum(["email", "prog-contact"])],
+      ["Regardent la carte", sum(["btn-carte", "nav-carte", "menu-carte"])],
+      ["Regardent le programme", sum(["nav-programme", "menu-programme", "about-programme"])],
+      ["Cliquent sur « Je m’inscris »", g("subscribe")]
+    ]);
+    function byPrefix(prefix, label) {
+      var out = [];
+      Object.keys(cur).forEach(function (k) { if (k.indexOf(prefix) === 0) out.push([label(k.slice(prefix.length)), cur[k]]); });
+      out.sort(function (a, b) { return b[1] - a[1]; });
+      return out.slice(0, 6);
+    }
+    var regionNames = null, langNames = null;
+    try { regionNames = new Intl.DisplayNames(["fr"], { type: "region" }); } catch (e) {}
+    try { langNames = new Intl.DisplayNames(["fr"], { type: "language" }); } catch (e) {}
+    function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+    listRows("countries", byPrefix("country:", function (c) { try { return regionNames ? regionNames.of(c.toUpperCase()) : c.toUpperCase(); } catch (e) { return c.toUpperCase(); } }));
+    listRows("langs", byPrefix("lang:", function (c) { try { return langNames ? cap(langNames.of(c)) : c; } catch (e) { return c; } }));
+
+    // sign-ups
+    $("subsum").textContent = subs
+      ? nf.format(subs.count) + (subs.count > 1 ? " personnes sont inscrites" : " personne est inscrite") + " pour recevoir le programme."
+      : "Le nombre d’inscrits n’est pas disponible pour le moment.";
+  }
+
+  // sign in
+  $("loginform").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var v = $("pw").value.trim();
+    if (!v) { $("loginmsg").textContent = "Entrez le mot de passe."; return; }
+    key = v; $("loginmsg").textContent = "";
+    load().then(function () { if (!$("board").hidden) { keep(key, $("remember").checked); $("pw").value = ""; } });
+  });
+  $("logout").addEventListener("click", function () { forget(); key = ""; showLogin(""); });
+  Array.prototype.forEach.call(document.querySelectorAll(".tab"), function (t) {
+    t.addEventListener("click", function () {
+      days = parseInt(t.getAttribute("data-days"), 10);
+      Array.prototype.forEach.call(document.querySelectorAll(".tab"), function (o) { o.setAttribute("aria-pressed", o === t ? "true" : "false"); });
+      load();
+    });
+  });
+  $("csv").addEventListener("click", function () {
+    $("csvmsg").textContent = "";
+    api("/subscribers").then(function (r) { return r.blob(); }).then(function (b) {
+      var a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = "inscrits-soucoupe-flottante.csv";
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+    }).catch(function () { $("csvmsg").textContent = "Le téléchargement n’a pas fonctionné. Réessayez."; });
+  });
+
+  // already signed in on this device?
+  var s = saved();
+  if (s) { key = s; load(); }
+})();
+</script>
+</body>
+</html>
