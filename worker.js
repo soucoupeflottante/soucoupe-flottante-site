@@ -1,5 +1,5 @@
 // Tally: small, cookieless statistics. Counts are anonymous hourly totals kept in D1.
-// Only /tally/*, /subscribe and /subscribers reach this Worker; everything else is served as static files.
+// Only /tally/*, /subscribe, /subscribers, /scene and /scene-list reach this Worker; everything else is served as static files.
 
 const NAME_OK = /^[a-z0-9:_.\-]{1,48}$/;
 const APP_OK = /^[a-z0-9_\-]{1,24}$/;
@@ -20,6 +20,9 @@ function setup(db) {
       ),
       db.prepare(
         "CREATE TABLE IF NOT EXISTS subscribers (email TEXT PRIMARY KEY, lang TEXT NOT NULL, created TEXT NOT NULL)"
+      ),
+      db.prepare(
+        "CREATE TABLE IF NOT EXISTS artists (id INTEGER PRIMARY KEY AUTOINCREMENT, created TEXT NOT NULL, name TEXT NOT NULL, email TEXT NOT NULL, phone TEXT NOT NULL, link TEXT NOT NULL, style TEXT NOT NULL, format TEXT NOT NULL, people TEXT NOT NULL, about TEXT NOT NULL, needs TEXT NOT NULL, dates TEXT NOT NULL)"
       ),
     ]);
   }
@@ -215,6 +218,68 @@ async function subscribers(request, env, url) {
   });
 }
 
+// Open-mic applications from the unlisted page /scene-ouverte. Free text, so lengths are capped.
+const SCENE_DAILY_CAP = 10;
+const SCENE_FIELDS = { name: 80, phone: 40, link: 200, style: 120, format: 40, people: 10, about: 1000, needs: 500, dates: 300 };
+
+async function scene(request, env, url) {
+  if (!sameOrigin(request, url)) return new Response(null, { status: 403 });
+  let body;
+  try {
+    const text = await request.text();
+    if (text.length > 8000) return new Response(null, { status: 413 });
+    body = JSON.parse(text);
+  } catch {
+    return new Response(null, { status: 400 });
+  }
+  if (body.website) return new Response(null, { status: 204 });
+  const clean = (v, max) => String(v == null ? "" : v).replace(/\r\n/g, "\n").trim().slice(0, max);
+  const f = {};
+  for (const [k, max] of Object.entries(SCENE_FIELDS)) f[k] = clean(body[k], max);
+  const email = clean(body.email, 254).toLowerCase();
+  if (!f.name || !EMAIL_OK.test(email)) return new Response(null, { status: 400 });
+
+  const db = env.DB;
+  await setup(db);
+  const now = new Date();
+  const day = now.toISOString().slice(0, 10);
+  const h = "scene:" + (await networkHash(request.headers.get("cf-connecting-ip")));
+  const row = await db
+    .prepare(
+      "INSERT INTO abuse (h, day, c) VALUES (?, ?, 1) ON CONFLICT(h, day) DO UPDATE SET c = c + 1 RETURNING c"
+    )
+    .bind(h, day)
+    .first();
+  if (row && row.c > SCENE_DAILY_CAP) return new Response(null, { status: 429 });
+
+  await db
+    .prepare(
+      "INSERT INTO artists (created, name, email, phone, link, style, format, people, about, needs, dates) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    )
+    .bind(now.toISOString(), f.name, email, f.phone, f.link, f.style, f.format, f.people, f.about, f.needs, f.dates)
+    .run();
+  return new Response(null, { status: 204 });
+}
+
+// One CSV cell: quoted, and a leading = + - @ is defused so a spreadsheet never runs it as a formula.
+function cell(v) {
+  let t = String(v == null ? "" : v);
+  if (/^[=+\-@\t\r]/.test(t)) t = "'" + t;
+  return '"' + t.replace(/"/g, '""') + '"';
+}
+
+// The applications, as a CSV for the spreadsheet. Same secret key as the statistics.
+async function artists(request, env, url) {
+  const denied = await checkKey(request, env, url);
+  if (denied) return denied;
+  const { results } = await env.DB.prepare("SELECT * FROM artists ORDER BY created").all();
+  const cols = ["created", "name", "email", "phone", "link", "style", "format", "people", "about", "needs", "dates"];
+  const lines = [cols.join(","), ...results.map((r) => cols.map((c) => cell(r[c])).join(","))];
+  return new Response("\ufeff" + lines.join("\n") + "\n", {
+    headers: { "content-type": "text/csv; charset=utf-8", "cache-control": "no-store" },
+  });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -222,6 +287,8 @@ export default {
     if (url.pathname === "/tally/stats" && request.method === "GET") return stats(request, env, url);
     if (url.pathname === "/subscribe" && request.method === "POST") return subscribe(request, env, url);
     if (url.pathname === "/subscribers" && request.method === "GET") return subscribers(request, env, url);
+    if (url.pathname === "/scene" && request.method === "POST") return scene(request, env, url);
+    if (url.pathname === "/scene-list" && request.method === "GET") return artists(request, env, url);
     return new Response("Not found", { status: 404 });
   },
 };

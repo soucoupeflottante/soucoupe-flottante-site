@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Scène ouverte, Soucoupe Flottante</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+:root{--navy:#2D4A78;--deep:#213A60;--ink:#1C2250;--cream:#FBF3E4;--coral:#FF5E50;--gold:#E0AD2B;--muted:#4F5775}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:'DM Sans',system-ui,sans-serif;font-size:18px;line-height:1.55}
+[hidden]{display:none!important}
+header{background:var(--navy)}
+.bar{max-width:760px;margin:0 auto;padding:6px 20px;min-height:60px;display:flex;align-items:center}
+.bar a{display:inline-flex;align-items:center;min-height:48px}
+.bar img{display:block;width:32px;height:44px}
+main{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+h1{margin:0 0 20px;font-size:clamp(36px,7vw,52px);line-height:1.08;letter-spacing:-.01em}
+.lead{margin:0 0 14px;font-size:21px;line-height:1.6}
+form{margin-top:36px;display:flex;flex-direction:column;gap:22px}
+label,legend{display:block;font-weight:700;font-size:17px;margin:0 0 6px;padding:0}
+.hint{display:block;font-weight:400;font-size:15px;color:var(--muted)}
+input[type=text],input[type=email],input[type=tel],textarea,select{width:100%;min-height:52px;padding:12px 18px;border-radius:18px;border:2px solid var(--ink);background:#fff;font:inherit;font-size:18px;color:var(--ink)}
+textarea{min-height:120px;resize:vertical}
+fieldset{border:0;margin:0;padding:0}
+.opts{display:flex;flex-wrap:wrap;gap:10px}
+.opts label{display:inline-flex;align-items:center;gap:8px;margin:0;font-weight:500;min-height:48px;padding:0 18px;border:2px solid var(--ink);border-radius:999px;background:#fff;cursor:pointer}
+.opts input{width:20px;height:20px;accent-color:var(--navy);margin:0}
+.opts label:has(input:checked){background:var(--navy);color:var(--cream);border-color:var(--navy)}
+.row{display:flex;gap:18px;flex-wrap:wrap}
+.row>div{flex:1 1 240px;min-width:0}
+button{min-height:54px;padding:0 32px;border-radius:999px;border:0;background:var(--coral);color:var(--ink);font:inherit;font-size:18px;font-weight:700;cursor:pointer;align-self:flex-start;transition:transform .15s ease}
+button:hover{transform:translateY(-2px)}
+button[disabled]{opacity:.6;cursor:default}
+input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.msg{margin:0;min-height:1.5em;font-weight:500}
+.msg.err{color:#A3261A}
+.done{margin-top:36px;padding:28px;border-radius:24px;background:#fff}
+.done p{margin:0 0 10px;font-size:21px}
+.small{margin-top:28px;font-size:15px;color:var(--muted);line-height:1.5}
+@media (prefers-reduced-motion:reduce){button{transition:none}}
+</style>
+</head>
+<body>
+<header><div class="bar"><a href="/" aria-label="Soucoupe Flottante"><img src="sf-white.png" alt="Soucoupe Flottante" width="32" height="44"></a></div></header>
+<main>
+<h1>Scène ouverte</h1>
+<p class="lead">La petite scène de la Soucoupe est ouverte à la musique, à la poésie, au chant, à l’humour, à tout ce qui se joue en direct devant quelques tables et un café qui refroidit.</p>
+<p class="lead">Dites-nous qui vous êtes et ce que vous aimeriez jouer. Vincent vous écrit ensuite pour trouver une date ensemble.</p>
+
+<form id="f" novalidate>
+<div>
+<label for="name">Votre nom, ou celui du groupe</label>
+<input type="text" id="name" name="name" autocomplete="name" maxlength="80" required>
+</div>
+<div class="row">
+<div>
+<label for="email">E-mail</label>
+<input type="email" id="email" name="email" autocomplete="email" maxlength="254" required>
+</div>
+<div>
+<label for="phone">Téléphone <span class="hint">si vous voulez, c’est facultatif</span></label>
+<input type="tel" id="phone" name="phone" autocomplete="tel" maxlength="40">
+</div>
+</div>
+<fieldset>
+<legend>Vous venez</legend>
+<div class="opts">
+<label><input type="radio" name="format" value="Solo"> Seul·e</label>
+<label><input type="radio" name="format" value="Duo"> En duo</label>
+<label><input type="radio" name="format" value="Groupe"> En groupe</label>
+<label><input type="radio" name="format" value="Autre"> Autre</label>
+</div>
+</fieldset>
+<div>
+<label for="people">Combien de personnes sur scène ?</label>
+<input type="text" id="people" name="people" inputmode="numeric" maxlength="10" style="max-width:140px">
+</div>
+<div>
+<label for="style">Votre univers <span class="hint">chanson, jazz, électro, poésie, stand-up…</span></label>
+<input type="text" id="style" name="style" maxlength="120">
+</div>
+<div>
+<label for="link">Un lien pour vous écouter <span class="hint">Instagram, YouTube, Bandcamp, SoundCloud…</span></label>
+<input type="text" id="link" name="link" autocomplete="url" maxlength="200">
+</div>
+<div>
+<label for="about">Quelques mots sur ce que vous aimeriez présenter</label>
+<textarea id="about" name="about" maxlength="1000"></textarea>
+</div>
+<div>
+<label for="needs">De quoi avez-vous besoin ? <span class="hint">micro, ampli, clavier, rien du tout…</span></label>
+<textarea id="needs" name="needs" maxlength="500" style="min-height:90px"></textarea>
+</div>
+<div>
+<label for="dates">Des dates ou des moments qui vous arrangent</label>
+<input type="text" id="dates" name="dates" maxlength="300" placeholder="Un jeudi soir, plutôt en décembre…">
+</div>
+<input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+<button type="submit" id="go" data-ev="scene-send">Envoyer</button>
+<p class="msg" id="msg" role="status" aria-live="polite"></p>
+</form>
+
+<div class="done" id="done" hidden>
+<p><strong>Merci, c’est bien arrivé.</strong></p>
+<p>Vincent vous écrit bientôt.</p>
+</div>
+
+<p class="small">Ce que vous écrivez ici reste entre vous et la Soucoupe, et sert uniquement à vous répondre. Pour retirer votre candidature, un mot à contact@soucoupeflottante.com suffit.</p>
+</main>
+
+<script>
+(function(){
+var f=document.getElementById("f"),msg=document.getElementById("msg"),go=document.getElementById("go");
+function v(n){var e=f.elements[n];return e&&e.value?e.value.trim():""}
+f.addEventListener("submit",function(e){
+e.preventDefault();msg.className="msg";msg.textContent="";
+if(!v("name")){msg.className="msg err";msg.textContent="Dites-nous comment vous appeler.";f.elements.name.focus();return}
+if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v("email"))){msg.className="msg err";msg.textContent="Cette adresse e-mail ne semble pas complète.";f.elements.email.focus();return}
+var fm=f.querySelector("input[name=format]:checked");
+var data={website:v("website"),format:fm?fm.value:""};
+["name","email","phone","people","style","link","about","needs","dates"].forEach(function(n){data[n]=v(n)});
+go.disabled=true;
+fetch("/scene",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(data)})
+.then(function(r){
+if(r.ok){f.hidden=true;document.getElementById("done").hidden=false;window.scrollTo(0,0)}
+else{go.disabled=false;msg.className="msg err";msg.textContent=r.status===429?"Il y a eu beaucoup d’envois depuis ce réseau aujourd’hui. Réessayez demain, ou écrivez à contact@soucoupeflottante.com.":"Quelque chose n’a pas marché. Vous pouvez réessayer, ou écrire à contact@soucoupeflottante.com."}})
+.catch(function(){go.disabled=false;msg.className="msg err";msg.textContent="Quelque chose n’a pas marché. Vous pouvez réessayer, ou écrire à contact@soucoupeflottante.com."});
+});})();
+</script>
+<script defer src="/tally.js" data-app="soucoupe"></script>
+</body>
+</html>

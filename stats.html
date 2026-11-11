@@ -158,6 +158,13 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(-
 <p class="msg" id="csvmsg" role="status"></p>
 </section>
 
+<section class="card" aria-labelledby="sceneh">
+<h2 id="sceneh">Candidatures scène ouverte</h2>
+<p class="help">Les artistes qui ont rempli le formulaire. Le fichier s’ouvre dans Google Sheets ou Excel.</p>
+<button class="btn quiet" id="csv2" type="button">Télécharger les candidatures (CSV)</button>
+<p class="msg" id="csvmsg2" role="status"></p>
+</section>
+
 <section class="card read" aria-labelledby="readh">
 <h2 id="readh">Comment lire ces chiffres</h2>
 <p>Une « page ouverte » est une page affichée sur un écran. Une même personne qui revient, ou qui ouvre plusieurs pages, compte plusieurs fois.</p>
@@ -357,6 +364,14 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(-
       var a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = "inscrits-soucoupe-flottante.csv";
       document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
     }).catch(function () { $("csvmsg").textContent = "Le téléchargement n’a pas fonctionné. Réessayez."; });
+  });
+
+  $("csv2").addEventListener("click", function () {
+    $("csvmsg2").textContent = "";
+    api("/scene-list").then(function (r) { return r.blob(); }).then(function (b) {
+      var a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = "scene-ouverte-soucoupe-flottante.csv";
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+    }).catch(function () { $("csvmsg2").textContent = "Le téléchargement n’a pas fonctionné. Réessayez."; });
   });
 
   // already signed in on this device?
