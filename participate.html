@@ -58,8 +58,8 @@ input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-vis
 <header><div class="bar"><a href="/" aria-label="Soucoupe Flottante"><img src="sf-white.png" alt="Soucoupe Flottante" width="32" height="44"></a><a class="lang" href="/participer" hreflang="fr" lang="fr" data-ev="lang-switch" aria-label="Français">FR</a></div></header>
 <main>
 <h1>Take part</h1>
-<p class="lead">Soucoupe has a small stage, walls for exhibitions and room for workshops. Music, poetry, painting, a workshop to share, or just a wish to sing on a karaoke night: there is room for you.</p>
-<p class="lead">Tell us what appeals to you. Vincent will write back to find a date together.</p>
+<p class="lead">Are you an artist, a performer, a musician, or just someone who would like to enjoy an open mic? If you have an artistic project, Soucoupe Flottante might be the space for you.</p>
+<p class="lead">If you feel like taking part, this form is for you.</p>
 
 <form id="f" novalidate>
 <div>
@@ -127,8 +127,8 @@ input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-vis
 
 <div class="done" id="done" hidden>
 <p><strong>Thank you, it arrived.</strong></p>
-<p>Vincent will write to you soon.</p>
-<p id="wamsg" hidden>He will also add you to the WhatsApp announcements group.</p>
+<p>We will reply soon.</p>
+<p id="wamsg" hidden>We will also add you to the WhatsApp announcements group.</p>
 </div>
 
 <p class="small">What you write here stays between you and Soucoupe, and is only used to reply to you. To withdraw your message, a note to contact@soucoupeflottante.com is enough.</p>
@@ -142,7 +142,7 @@ f.addEventListener("submit",function(e){
 e.preventDefault();msg.className="msg";msg.textContent="";
 if(!v("name")){msg.className="msg err";msg.textContent="Tell us what to call you.";f.elements.name.focus();return}
 var wa=f.elements.whatsapp.checked;
-if(!v("email")&&!v("phone")){msg.className="msg err";msg.textContent="Leave us an email or a phone number so Vincent can reply.";f.elements.email.focus();return}
+if(!v("email")&&!v("phone")){msg.className="msg err";msg.textContent="Leave us an email or a phone number so we can reply.";f.elements.email.focus();return}
 if(v("email")&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v("email"))){msg.className="msg err";msg.textContent="This email address looks incomplete.";f.elements.email.focus();return}
 if(wa&&!v("phone")){msg.className="msg err";msg.textContent="For the WhatsApp group, we need your number.";f.elements.phone.focus();return}
 var fm=f.querySelector("input[name=format]:checked");
