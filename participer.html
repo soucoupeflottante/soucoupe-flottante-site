@@ -58,8 +58,8 @@ input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-vis
 <header><div class="bar"><a href="/" aria-label="Soucoupe Flottante"><img src="sf-white.png" alt="Soucoupe Flottante" width="32" height="44"></a><a class="lang" href="/participate" hreflang="en" lang="en" data-ev="lang-switch" aria-label="English">EN</a></div></header>
 <main>
 <h1>Participer</h1>
-<p class="lead">La Soucoupe a une petite scène, des murs pour les expos et de la place pour des ateliers. Musique, poésie, peinture, un atelier à partager, ou juste l’envie de chanter un soir de karaoké : il y a de la place pour vous.</p>
-<p class="lead">Dites-nous ce qui vous tente. Vincent vous écrit ensuite pour trouver une date ensemble.</p>
+<p class="lead">Artiste, performeur·se, musicien·ne, ou simplement envie de profiter d’une scène ouverte ? Si vous avez un projet artistique, la Soucoupe Flottante est peut-être l’endroit qu’il vous faut.</p>
+<p class="lead">Si l’envie de participer vous tente, ce formulaire est fait pour ça.</p>
 
 <form id="f" novalidate>
 <div>
@@ -127,8 +127,8 @@ input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-vis
 
 <div class="done" id="done" hidden>
 <p><strong>Merci, c’est bien arrivé.</strong></p>
-<p>Vincent vous écrit bientôt.</p>
-<p id="wamsg" hidden>Il vous ajoute aussi au groupe WhatsApp d’annonces.</p>
+<p>On vous répond bientôt.</p>
+<p id="wamsg" hidden>On vous ajoute aussi au groupe WhatsApp d’annonces.</p>
 </div>
 
 <p class="small">Ce que vous écrivez ici reste entre vous et la Soucoupe, et sert uniquement à vous répondre. Pour retirer votre message, un mot à contact@soucoupeflottante.com suffit.</p>
@@ -142,7 +142,7 @@ f.addEventListener("submit",function(e){
 e.preventDefault();msg.className="msg";msg.textContent="";
 if(!v("name")){msg.className="msg err";msg.textContent="Dites-nous comment vous appeler.";f.elements.name.focus();return}
 var wa=f.elements.whatsapp.checked;
-if(!v("email")&&!v("phone")){msg.className="msg err";msg.textContent="Laissez-nous un e-mail ou un téléphone pour que Vincent puisse vous répondre.";f.elements.email.focus();return}
+if(!v("email")&&!v("phone")){msg.className="msg err";msg.textContent="Laissez-nous un e-mail ou un téléphone pour qu’on puisse vous répondre.";f.elements.email.focus();return}
 if(v("email")&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v("email"))){msg.className="msg err";msg.textContent="Cette adresse e-mail ne semble pas complète.";f.elements.email.focus();return}
 if(wa&&!v("phone")){msg.className="msg err";msg.textContent="Pour le groupe WhatsApp, il nous faut votre numéro.";f.elements.phone.focus();return}
 var fm=f.querySelector("input[name=format]:checked");
