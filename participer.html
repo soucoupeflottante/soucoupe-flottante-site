@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Scène ouverte, Soucoupe Flottante</title>
+<title>Participer, Soucoupe Flottante</title>
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -50,9 +50,9 @@ input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-vis
 <body>
 <header><div class="bar"><a href="/" aria-label="Soucoupe Flottante"><img src="sf-white.png" alt="Soucoupe Flottante" width="32" height="44"></a></div></header>
 <main>
-<h1>Scène ouverte</h1>
-<p class="lead">La petite scène de la Soucoupe est ouverte à la musique, à la poésie, au chant, à l’humour, à tout ce qui se joue en direct devant quelques tables et un café qui refroidit.</p>
-<p class="lead">Dites-nous qui vous êtes et ce que vous aimeriez jouer. Vincent vous écrit ensuite pour trouver une date ensemble.</p>
+<h1>Participer</h1>
+<p class="lead">La Soucoupe a une petite scène, des murs pour les expos et de la place pour des ateliers. Musique, poésie, peinture, un atelier à partager, ou juste l’envie de chanter un soir de karaoké : il y a de la place pour vous.</p>
+<p class="lead">Dites-nous ce qui vous tente. Vincent vous écrit ensuite pour trouver une date ensemble.</p>
 
 <form id="f" novalidate>
 <div>
@@ -70,6 +70,16 @@ input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-vis
 </div>
 </div>
 <fieldset>
+<legend>Ce qui vous tente <span class="hint">vous pouvez en cocher plusieurs</span></legend>
+<div class="opts">
+<label><input type="checkbox" name="kind" value="Scène ouverte"> Scène ouverte</label>
+<label><input type="checkbox" name="kind" value="Exposition"> Exposition</label>
+<label><input type="checkbox" name="kind" value="Atelier"> Atelier</label>
+<label><input type="checkbox" name="kind" value="Karaoké"> Karaoké</label>
+<label><input type="checkbox" name="kind" value="Autre"> Autre chose</label>
+</div>
+</fieldset>
+<fieldset>
 <legend>Vous venez</legend>
 <div class="opts">
 <label><input type="radio" name="format" value="Solo"> Seul·e</label>
@@ -79,23 +89,23 @@ input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-vis
 </div>
 </fieldset>
 <div>
-<label for="people">Combien de personnes sur scène ?</label>
+<label for="people">Combien de personnes ?</label>
 <input type="text" id="people" name="people" inputmode="numeric" maxlength="10" style="max-width:140px">
 </div>
 <div>
-<label for="style">Votre univers <span class="hint">chanson, jazz, électro, poésie, stand-up…</span></label>
+<label for="style">Votre univers <span class="hint">chanson, jazz, poésie, peinture, stand-up, cuisine…</span></label>
 <input type="text" id="style" name="style" maxlength="120">
 </div>
 <div>
-<label for="link">Un lien pour vous écouter <span class="hint">Instagram, YouTube, Bandcamp, SoundCloud…</span></label>
+<label for="link">Un lien pour vous découvrir <span class="hint">Instagram, YouTube, Bandcamp, site…</span></label>
 <input type="text" id="link" name="link" autocomplete="url" maxlength="200">
 </div>
 <div>
-<label for="about">Quelques mots sur ce que vous aimeriez présenter</label>
+<label for="about">Quelques mots sur ce que vous aimeriez faire</label>
 <textarea id="about" name="about" maxlength="1000"></textarea>
 </div>
 <div>
-<label for="needs">De quoi avez-vous besoin ? <span class="hint">micro, ampli, clavier, rien du tout…</span></label>
+<label for="needs">De quoi avez-vous besoin ? <span class="hint">micro, ampli, murs pour accrocher, une table, rien du tout…</span></label>
 <textarea id="needs" name="needs" maxlength="500" style="min-height:90px"></textarea>
 </div>
 <div>
@@ -103,7 +113,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-vis
 <input type="text" id="dates" name="dates" maxlength="300" placeholder="Un jeudi soir, plutôt en décembre…">
 </div>
 <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-<button type="submit" id="go" data-ev="scene-send">Envoyer</button>
+<button type="submit" id="go" data-ev="participer-send">Envoyer</button>
 <p class="msg" id="msg" role="status" aria-live="polite"></p>
 </form>
 
@@ -112,7 +122,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-vis
 <p>Vincent vous écrit bientôt.</p>
 </div>
 
-<p class="small">Ce que vous écrivez ici reste entre vous et la Soucoupe, et sert uniquement à vous répondre. Pour retirer votre candidature, un mot à contact@soucoupeflottante.com suffit.</p>
+<p class="small">Ce que vous écrivez ici reste entre vous et la Soucoupe, et sert uniquement à vous répondre. Pour retirer votre message, un mot à contact@soucoupeflottante.com suffit.</p>
 </main>
 
 <script>
@@ -124,7 +134,8 @@ e.preventDefault();msg.className="msg";msg.textContent="";
 if(!v("name")){msg.className="msg err";msg.textContent="Dites-nous comment vous appeler.";f.elements.name.focus();return}
 if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v("email"))){msg.className="msg err";msg.textContent="Cette adresse e-mail ne semble pas complète.";f.elements.email.focus();return}
 var fm=f.querySelector("input[name=format]:checked");
-var data={website:v("website"),format:fm?fm.value:""};
+var ks=[].map.call(f.querySelectorAll("input[name=kind]:checked"),function(x){return x.value}).join(", ");
+var data={website:v("website"),format:fm?fm.value:"",kind:ks};
 ["name","email","phone","people","style","link","about","needs","dates"].forEach(function(n){data[n]=v(n)});
 go.disabled=true;
 fetch("/scene",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(data)})

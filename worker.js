@@ -22,7 +22,7 @@ function setup(db) {
         "CREATE TABLE IF NOT EXISTS subscribers (email TEXT PRIMARY KEY, lang TEXT NOT NULL, created TEXT NOT NULL)"
       ),
       db.prepare(
-        "CREATE TABLE IF NOT EXISTS artists (id INTEGER PRIMARY KEY AUTOINCREMENT, created TEXT NOT NULL, name TEXT NOT NULL, email TEXT NOT NULL, phone TEXT NOT NULL, link TEXT NOT NULL, style TEXT NOT NULL, format TEXT NOT NULL, people TEXT NOT NULL, about TEXT NOT NULL, needs TEXT NOT NULL, dates TEXT NOT NULL)"
+        "CREATE TABLE IF NOT EXISTS artists (id INTEGER PRIMARY KEY AUTOINCREMENT, created TEXT NOT NULL, kind TEXT NOT NULL, name TEXT NOT NULL, email TEXT NOT NULL, phone TEXT NOT NULL, link TEXT NOT NULL, style TEXT NOT NULL, format TEXT NOT NULL, people TEXT NOT NULL, about TEXT NOT NULL, needs TEXT NOT NULL, dates TEXT NOT NULL)"
       ),
     ]);
   }
@@ -218,9 +218,9 @@ async function subscribers(request, env, url) {
   });
 }
 
-// Open-mic applications from the unlisted page /scene-ouverte. Free text, so lengths are capped.
+// Proposals from the unlisted page /participer (open mic, expos, workshops, karaoke). Free text, so lengths are capped.
 const SCENE_DAILY_CAP = 10;
-const SCENE_FIELDS = { name: 80, phone: 40, link: 200, style: 120, format: 40, people: 10, about: 1000, needs: 500, dates: 300 };
+const SCENE_FIELDS = { kind: 120, name: 80, phone: 40, link: 200, style: 120, format: 40, people: 10, about: 1000, needs: 500, dates: 300 };
 
 async function scene(request, env, url) {
   if (!sameOrigin(request, url)) return new Response(null, { status: 403 });
@@ -254,9 +254,9 @@ async function scene(request, env, url) {
 
   await db
     .prepare(
-      "INSERT INTO artists (created, name, email, phone, link, style, format, people, about, needs, dates) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+      "INSERT INTO artists (created, kind, name, email, phone, link, style, format, people, about, needs, dates) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
     )
-    .bind(now.toISOString(), f.name, email, f.phone, f.link, f.style, f.format, f.people, f.about, f.needs, f.dates)
+    .bind(now.toISOString(), f.kind, f.name, email, f.phone, f.link, f.style, f.format, f.people, f.about, f.needs, f.dates)
     .run();
   return new Response(null, { status: 204 });
 }
@@ -268,12 +268,12 @@ function cell(v) {
   return '"' + t.replace(/"/g, '""') + '"';
 }
 
-// The applications, as a CSV for the spreadsheet. Same secret key as the statistics.
+// The proposals, as a CSV for the spreadsheet. Same secret key as the statistics.
 async function artists(request, env, url) {
   const denied = await checkKey(request, env, url);
   if (denied) return denied;
   const { results } = await env.DB.prepare("SELECT * FROM artists ORDER BY created").all();
-  const cols = ["created", "name", "email", "phone", "link", "style", "format", "people", "about", "needs", "dates"];
+  const cols = ["created", "kind", "name", "email", "phone", "link", "style", "format", "people", "about", "needs", "dates"];
   const lines = [cols.join(","), ...results.map((r) => cols.map((c) => cell(r[c])).join(","))];
   return new Response("\ufeff" + lines.join("\n") + "\n", {
     headers: { "content-type": "text/csv; charset=utf-8", "cache-control": "no-store" },

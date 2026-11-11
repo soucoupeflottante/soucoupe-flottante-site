@@ -159,9 +159,9 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(-
 </section>
 
 <section class="card" aria-labelledby="sceneh">
-<h2 id="sceneh">Candidatures scène ouverte</h2>
-<p class="help">Les artistes qui ont rempli le formulaire. Le fichier s’ouvre dans Google Sheets ou Excel.</p>
-<button class="btn quiet" id="csv2" type="button">Télécharger les candidatures (CSV)</button>
+<h2 id="sceneh">Propositions : scène, expos, ateliers</h2>
+<p class="help">Les personnes qui ont rempli le formulaire « Participer ». Le fichier s’ouvre dans Google Sheets ou Excel.</p>
+<button class="btn quiet" id="csv2" type="button">Télécharger les propositions (CSV)</button>
 <p class="msg" id="csvmsg2" role="status"></p>
 </section>
 
@@ -369,7 +369,7 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(-
   $("csv2").addEventListener("click", function () {
     $("csvmsg2").textContent = "";
     api("/scene-list").then(function (r) { return r.blob(); }).then(function (b) {
-      var a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = "scene-ouverte-soucoupe-flottante.csv";
+      var a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = "propositions-soucoupe-flottante.csv";
       document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
     }).catch(function () { $("csvmsg2").textContent = "Le téléchargement n’a pas fonctionné. Réessayez."; });
   });
