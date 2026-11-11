@@ -38,6 +38,9 @@ button{min-height:54px;padding:0 32px;border-radius:999px;border:0;background:va
 button:hover{transform:translateY(-2px)}
 button[disabled]{opacity:.6;cursor:default}
 input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.wa{display:flex;gap:12px;align-items:flex-start;margin:0;padding:18px 20px;border:2px solid var(--ink);border-radius:20px;background:#fff;font-weight:700;cursor:pointer}
+.wa input{width:22px;height:22px;margin:3px 0 0;accent-color:var(--navy);flex:none}
+.wa .hint{margin-top:4px}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .msg{margin:0;min-height:1.5em;font-weight:500}
 .msg.err{color:#A3261A}
@@ -61,14 +64,15 @@ input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-vis
 </div>
 <div class="row">
 <div>
-<label for="email">E-mail</label>
+<label for="email">E-mail <span class="hint">ou un téléphone, un des deux suffit</span></label>
 <input type="email" id="email" name="email" autocomplete="email" maxlength="254" required>
 </div>
 <div>
-<label for="phone">Téléphone <span class="hint">si vous voulez, c’est facultatif</span></label>
+<label for="phone">Téléphone <span class="hint">facultatif, sauf pour le groupe WhatsApp</span></label>
 <input type="tel" id="phone" name="phone" autocomplete="tel" maxlength="40">
 </div>
 </div>
+<label class="wa"><input type="checkbox" name="whatsapp" value="oui"><span>Je veux bien rejoindre le groupe WhatsApp d’annonces<span class="hint">Quelques messages de la Soucoupe : les soirées, les expos, les ateliers. On n’y écrit pas, on y lit. Pensez à indiquer votre numéro plus haut.</span></span></label>
 <fieldset>
 <legend>Ce qui vous tente <span class="hint">vous pouvez en cocher plusieurs</span></legend>
 <div class="opts">
@@ -120,6 +124,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-vis
 <div class="done" id="done" hidden>
 <p><strong>Merci, c’est bien arrivé.</strong></p>
 <p>Vincent vous écrit bientôt.</p>
+<p id="wamsg" hidden>Il vous ajoute aussi au groupe WhatsApp d’annonces.</p>
 </div>
 
 <p class="small">Ce que vous écrivez ici reste entre vous et la Soucoupe, et sert uniquement à vous répondre. Pour retirer votre message, un mot à contact@soucoupeflottante.com suffit.</p>
@@ -132,15 +137,18 @@ function v(n){var e=f.elements[n];return e&&e.value?e.value.trim():""}
 f.addEventListener("submit",function(e){
 e.preventDefault();msg.className="msg";msg.textContent="";
 if(!v("name")){msg.className="msg err";msg.textContent="Dites-nous comment vous appeler.";f.elements.name.focus();return}
-if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v("email"))){msg.className="msg err";msg.textContent="Cette adresse e-mail ne semble pas complète.";f.elements.email.focus();return}
+var wa=f.elements.whatsapp.checked;
+if(!v("email")&&!v("phone")){msg.className="msg err";msg.textContent="Laissez-nous un e-mail ou un téléphone pour que Vincent puisse vous répondre.";f.elements.email.focus();return}
+if(v("email")&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v("email"))){msg.className="msg err";msg.textContent="Cette adresse e-mail ne semble pas complète.";f.elements.email.focus();return}
+if(wa&&!v("phone")){msg.className="msg err";msg.textContent="Pour le groupe WhatsApp, il nous faut votre numéro.";f.elements.phone.focus();return}
 var fm=f.querySelector("input[name=format]:checked");
 var ks=[].map.call(f.querySelectorAll("input[name=kind]:checked"),function(x){return x.value}).join(", ");
-var data={website:v("website"),format:fm?fm.value:"",kind:ks};
+var data={website:v("website"),format:fm?fm.value:"",kind:ks,whatsapp:wa?"oui":""};
 ["name","email","phone","people","style","link","about","needs","dates"].forEach(function(n){data[n]=v(n)});
 go.disabled=true;
 fetch("/scene",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(data)})
 .then(function(r){
-if(r.ok){f.hidden=true;document.getElementById("done").hidden=false;window.scrollTo(0,0)}
+if(r.ok){if(wa)document.getElementById("wamsg").hidden=false;f.hidden=true;document.getElementById("done").hidden=false;window.scrollTo(0,0)}
 else{go.disabled=false;msg.className="msg err";msg.textContent=r.status===429?"Il y a eu beaucoup d’envois depuis ce réseau aujourd’hui. Réessayez demain, ou écrivez à contact@soucoupeflottante.com.":"Quelque chose n’a pas marché. Vous pouvez réessayer, ou écrire à contact@soucoupeflottante.com."}})
 .catch(function(){go.disabled=false;msg.className="msg err";msg.textContent="Quelque chose n’a pas marché. Vous pouvez réessayer, ou écrire à contact@soucoupeflottante.com."});
 });})();
