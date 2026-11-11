@@ -24,7 +24,10 @@ function setup(db) {
       db.prepare(
         "CREATE TABLE IF NOT EXISTS artists (id INTEGER PRIMARY KEY AUTOINCREMENT, created TEXT NOT NULL, kind TEXT NOT NULL, whatsapp TEXT NOT NULL, name TEXT NOT NULL, email TEXT NOT NULL, phone TEXT NOT NULL, link TEXT NOT NULL, style TEXT NOT NULL, format TEXT NOT NULL, people TEXT NOT NULL, about TEXT NOT NULL, needs TEXT NOT NULL, dates TEXT NOT NULL)"
       ),
-    ]);
+    ]).then(async () => {
+      // Added later: the page language, so replies go out in the right one. Fails quietly once it exists.
+      try { await db.prepare("ALTER TABLE artists ADD COLUMN lang TEXT NOT NULL DEFAULT ''").run(); } catch {}
+    });
   }
   return ready;
 }
@@ -238,6 +241,7 @@ async function scene(request, env, url) {
   for (const [k, max] of Object.entries(SCENE_FIELDS)) f[k] = clean(body[k], max);
   const email = clean(body.email, 254).toLowerCase();
   if (f.whatsapp !== "oui") f.whatsapp = "";
+  const lang = body.lang === "en" ? "en" : "fr";
   // A name, and a way to answer: an e-mail or a phone. WhatsApp needs the phone.
   if (!f.name || (!email && !f.phone) || (email && !EMAIL_OK.test(email)) || (f.whatsapp && !f.phone)) {
     return new Response(null, { status: 400 });
@@ -258,9 +262,9 @@ async function scene(request, env, url) {
 
   await db
     .prepare(
-      "INSERT INTO artists (created, kind, whatsapp, name, email, phone, link, style, format, people, about, needs, dates) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+      "INSERT INTO artists (created, kind, whatsapp, lang, name, email, phone, link, style, format, people, about, needs, dates) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
     )
-    .bind(now.toISOString(), f.kind, f.whatsapp, f.name, email, f.phone, f.link, f.style, f.format, f.people, f.about, f.needs, f.dates)
+    .bind(now.toISOString(), f.kind, f.whatsapp, lang, f.name, email, f.phone, f.link, f.style, f.format, f.people, f.about, f.needs, f.dates)
     .run();
   return new Response(null, { status: 204 });
 }
@@ -277,7 +281,7 @@ async function artists(request, env, url) {
   const denied = await checkKey(request, env, url);
   if (denied) return denied;
   const { results } = await env.DB.prepare("SELECT * FROM artists ORDER BY created").all();
-  const cols = ["created", "kind", "whatsapp", "name", "email", "phone", "link", "style", "format", "people", "about", "needs", "dates"];
+  const cols = ["created", "kind", "whatsapp", "lang", "name", "email", "phone", "link", "style", "format", "people", "about", "needs", "dates"];
   const lines = [cols.join(","), ...results.map((r) => cols.map((c) => cell(r[c])).join(","))];
   return new Response("\ufeff" + lines.join("\n") + "\n", {
     headers: { "content-type": "text/csv; charset=utf-8", "cache-control": "no-store" },

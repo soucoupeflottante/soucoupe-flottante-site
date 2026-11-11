@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Take part, Soucoupe Flottante</title>
+<link rel="alternate" hreflang="fr" href="https://soucoupeflottante.com/participer">
+<link rel="alternate" hreflang="en" href="https://soucoupeflottante.com/participate">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+:root{--navy:#2D4A78;--deep:#213A60;--ink:#1C2250;--cream:#FBF3E4;--coral:#FF5E50;--gold:#E0AD2B;--muted:#4F5775}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:'DM Sans',system-ui,sans-serif;font-size:18px;line-height:1.55}
+[hidden]{display:none!important}
+header{background:var(--navy)}
+.bar{max-width:760px;margin:0 auto;padding:6px 20px;min-height:60px;display:flex;align-items:center;justify-content:space-between}
+.lang{display:inline-flex;align-items:center;min-height:48px;padding:0 4px;color:#FBF3E4;text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.08em}
+.lang:hover{color:#FF5E50}
+.bar a{display:inline-flex;align-items:center;min-height:48px}
+.bar img{display:block;width:32px;height:44px}
+main{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+h1{margin:0 0 20px;font-size:clamp(36px,7vw,52px);line-height:1.08;letter-spacing:-.01em}
+.lead{margin:0 0 14px;font-size:21px;line-height:1.6}
+form{margin-top:36px;display:flex;flex-direction:column;gap:22px}
+label,legend{display:block;font-weight:700;font-size:17px;margin:0 0 6px;padding:0}
+.hint{display:block;font-weight:400;font-size:15px;color:var(--muted)}
+input[type=text],input[type=email],input[type=tel],textarea,select{width:100%;min-height:52px;padding:12px 18px;border-radius:18px;border:2px solid var(--ink);background:#fff;font:inherit;font-size:18px;color:var(--ink)}
+textarea{min-height:120px;resize:vertical}
+fieldset{border:0;margin:0;padding:0}
+.opts{display:flex;flex-wrap:wrap;gap:10px}
+.opts label{display:inline-flex;align-items:center;gap:8px;margin:0;font-weight:500;min-height:48px;padding:0 18px;border:2px solid var(--ink);border-radius:999px;background:#fff;cursor:pointer}
+.opts input{width:20px;height:20px;accent-color:var(--navy);margin:0}
+.opts label:has(input:checked){background:var(--navy);color:var(--cream);border-color:var(--navy)}
+.row{display:flex;gap:18px;flex-wrap:wrap}
+.row>div{flex:1 1 240px;min-width:0}
+button{min-height:54px;padding:0 32px;border-radius:999px;border:0;background:var(--coral);color:var(--ink);font:inherit;font-size:18px;font-weight:700;cursor:pointer;align-self:flex-start;transition:transform .15s ease}
+button:hover{transform:translateY(-2px)}
+button[disabled]{opacity:.6;cursor:default}
+input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.wa{display:flex;gap:12px;align-items:flex-start;margin:0;padding:18px 20px;border:2px solid var(--ink);border-radius:20px;background:#fff;font-weight:700;cursor:pointer}
+.wa input{width:22px;height:22px;margin:3px 0 0;accent-color:var(--navy);flex:none}
+.wa .hint{margin-top:4px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.msg{margin:0;min-height:1.5em;font-weight:500}
+.msg.err{color:#A3261A}
+.done{margin-top:36px;padding:28px;border-radius:24px;background:#fff}
+.done p{margin:0 0 10px;font-size:21px}
+.small{margin-top:28px;font-size:15px;color:var(--muted);line-height:1.5}
+@media (prefers-reduced-motion:reduce){button{transition:none}}
+</style>
+</head>
+<body>
+<header><div class="bar"><a href="/" aria-label="Soucoupe Flottante"><img src="sf-white.png" alt="Soucoupe Flottante" width="32" height="44"></a><a class="lang" href="/participer" hreflang="fr" lang="fr" data-ev="lang-switch" aria-label="Français">FR</a></div></header>
+<main>
+<h1>Take part</h1>
+<p class="lead">Soucoupe has a small stage, walls for exhibitions and room for workshops. Music, poetry, painting, a workshop to share, or just a wish to sing on a karaoke night: there is room for you.</p>
+<p class="lead">Tell us what appeals to you. Vincent will write back to find a date together.</p>
+
+<form id="f" novalidate>
+<div>
+<label for="name">Your name, or your group’s name</label>
+<input type="text" id="name" name="name" autocomplete="name" maxlength="80" required>
+</div>
+<div class="row">
+<div>
+<label for="email">Email <span class="hint">or a phone number, either one is enough</span></label>
+<input type="email" id="email" name="email" autocomplete="email" maxlength="254" required>
+</div>
+<div>
+<label for="phone">Phone <span class="hint">optional, except for the WhatsApp group</span></label>
+<input type="tel" id="phone" name="phone" autocomplete="tel" maxlength="40">
+</div>
+</div>
+<label class="wa"><input type="checkbox" name="whatsapp" value="oui"><span>I would like to join the WhatsApp announcements group<span class="hint">A few messages from Soucoupe: the evenings, the exhibitions, the workshops. You read it, you don’t write in it. Remember to add your number above.</span></span></label>
+<fieldset>
+<legend>What appeals to you <span class="hint">tick as many as you like</span></legend>
+<div class="opts">
+<label><input type="checkbox" name="kind" value="Scène ouverte"> Open mic</label>
+<label><input type="checkbox" name="kind" value="Exposition"> Exhibition</label>
+<label><input type="checkbox" name="kind" value="Atelier"> Workshop</label>
+<label><input type="checkbox" name="kind" value="Karaoké"> Karaoke</label>
+<label><input type="checkbox" name="kind" value="Autre"> Something else</label>
+</div>
+</fieldset>
+<fieldset>
+<legend>You are coming</legend>
+<div class="opts">
+<label><input type="radio" name="format" value="Solo"> Solo</label>
+<label><input type="radio" name="format" value="Duo"> As a duo</label>
+<label><input type="radio" name="format" value="Groupe"> As a group</label>
+<label><input type="radio" name="format" value="Autre"> Other</label>
+</div>
+</fieldset>
+<div>
+<label for="people">How many people?</label>
+<input type="text" id="people" name="people" inputmode="numeric" maxlength="10" style="max-width:140px">
+</div>
+<div>
+<label for="style">Your world <span class="hint">songs, jazz, poetry, painting, stand-up, cooking…</span></label>
+<input type="text" id="style" name="style" maxlength="120">
+</div>
+<div>
+<label for="link">A link to discover your work <span class="hint">Instagram, YouTube, Bandcamp, website…</span></label>
+<input type="text" id="link" name="link" autocomplete="url" maxlength="200">
+</div>
+<div>
+<label for="about">A few words about what you would like to do</label>
+<textarea id="about" name="about" maxlength="1000"></textarea>
+</div>
+<div>
+<label for="needs">What do you need? <span class="hint">a mic, an amp, wall space to hang work, a table, nothing at all…</span></label>
+<textarea id="needs" name="needs" maxlength="500" style="min-height:90px"></textarea>
+</div>
+<div>
+<label for="dates">Dates or moments that suit you</label>
+<input type="text" id="dates" name="dates" maxlength="300" placeholder="A Thursday evening, maybe in December…">
+</div>
+<input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+<button type="submit" id="go" data-ev="participate-send">Send</button>
+<p class="msg" id="msg" role="status" aria-live="polite"></p>
+</form>
+
+<div class="done" id="done" hidden>
+<p><strong>Thank you, it arrived.</strong></p>
+<p>Vincent will write to you soon.</p>
+<p id="wamsg" hidden>He will also add you to the WhatsApp announcements group.</p>
+</div>
+
+<p class="small">What you write here stays between you and Soucoupe, and is only used to reply to you. To withdraw your message, a note to contact@soucoupeflottante.com is enough.</p>
+</main>
+
+<script>
+(function(){
+var f=document.getElementById("f"),msg=document.getElementById("msg"),go=document.getElementById("go");
+function v(n){var e=f.elements[n];return e&&e.value?e.value.trim():""}
+f.addEventListener("submit",function(e){
+e.preventDefault();msg.className="msg";msg.textContent="";
+if(!v("name")){msg.className="msg err";msg.textContent="Tell us what to call you.";f.elements.name.focus();return}
+var wa=f.elements.whatsapp.checked;
+if(!v("email")&&!v("phone")){msg.className="msg err";msg.textContent="Leave us an email or a phone number so Vincent can reply.";f.elements.email.focus();return}
+if(v("email")&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v("email"))){msg.className="msg err";msg.textContent="This email address looks incomplete.";f.elements.email.focus();return}
+if(wa&&!v("phone")){msg.className="msg err";msg.textContent="For the WhatsApp group, we need your number.";f.elements.phone.focus();return}
+var fm=f.querySelector("input[name=format]:checked");
+var ks=[].map.call(f.querySelectorAll("input[name=kind]:checked"),function(x){return x.value}).join(", ");
+var data={website:v("website"),format:fm?fm.value:"",kind:ks,whatsapp:wa?"oui":"",lang:"en"};
+["name","email","phone","people","style","link","about","needs","dates"].forEach(function(n){data[n]=v(n)});
+go.disabled=true;
+fetch("/scene",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(data)})
+.then(function(r){
+if(r.ok){if(wa)document.getElementById("wamsg").hidden=false;f.hidden=true;document.getElementById("done").hidden=false;window.scrollTo(0,0)}
+else{go.disabled=false;msg.className="msg err";msg.textContent=r.status===429?"There were a lot of submissions from this network today. Try again tomorrow, or write to contact@soucoupeflottante.com.":"Something went wrong. You can try again, or write to contact@soucoupeflottante.com."}})
+.catch(function(){go.disabled=false;msg.className="msg err";msg.textContent="Something went wrong. You can try again, or write to contact@soucoupeflottante.com."});
+});})();
+</script>
+<script defer src="/tally.js" data-app="soucoupe"></script>
+</body>
+</html>

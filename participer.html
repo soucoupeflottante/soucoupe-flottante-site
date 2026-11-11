@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Participer, Soucoupe Flottante</title>
+<link rel="alternate" hreflang="fr" href="https://soucoupeflottante.com/participer">
+<link rel="alternate" hreflang="en" href="https://soucoupeflottante.com/participate">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -16,7 +18,9 @@
 body{margin:0;background:var(--cream);color:var(--ink);font-family:'DM Sans',system-ui,sans-serif;font-size:18px;line-height:1.55}
 [hidden]{display:none!important}
 header{background:var(--navy)}
-.bar{max-width:760px;margin:0 auto;padding:6px 20px;min-height:60px;display:flex;align-items:center}
+.bar{max-width:760px;margin:0 auto;padding:6px 20px;min-height:60px;display:flex;align-items:center;justify-content:space-between}
+.lang{display:inline-flex;align-items:center;min-height:48px;padding:0 4px;color:#FBF3E4;text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.08em}
+.lang:hover{color:#FF5E50}
 .bar a{display:inline-flex;align-items:center;min-height:48px}
 .bar img{display:block;width:32px;height:44px}
 main{max-width:760px;margin:0 auto;padding:48px 20px 80px}
@@ -51,7 +55,7 @@ input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-vis
 </style>
 </head>
 <body>
-<header><div class="bar"><a href="/" aria-label="Soucoupe Flottante"><img src="sf-white.png" alt="Soucoupe Flottante" width="32" height="44"></a></div></header>
+<header><div class="bar"><a href="/" aria-label="Soucoupe Flottante"><img src="sf-white.png" alt="Soucoupe Flottante" width="32" height="44"></a><a class="lang" href="/participate" hreflang="en" lang="en" data-ev="lang-switch" aria-label="English">EN</a></div></header>
 <main>
 <h1>Participer</h1>
 <p class="lead">La Soucoupe a une petite scène, des murs pour les expos et de la place pour des ateliers. Musique, poésie, peinture, un atelier à partager, ou juste l’envie de chanter un soir de karaoké : il y a de la place pour vous.</p>
@@ -143,7 +147,7 @@ if(v("email")&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v("email"))){msg.className="ms
 if(wa&&!v("phone")){msg.className="msg err";msg.textContent="Pour le groupe WhatsApp, il nous faut votre numéro.";f.elements.phone.focus();return}
 var fm=f.querySelector("input[name=format]:checked");
 var ks=[].map.call(f.querySelectorAll("input[name=kind]:checked"),function(x){return x.value}).join(", ");
-var data={website:v("website"),format:fm?fm.value:"",kind:ks,whatsapp:wa?"oui":""};
+var data={website:v("website"),format:fm?fm.value:"",kind:ks,whatsapp:wa?"oui":"",lang:"fr"};
 ["name","email","phone","people","style","link","about","needs","dates"].forEach(function(n){data[n]=v(n)});
 go.disabled=true;
 fetch("/scene",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(data)})
